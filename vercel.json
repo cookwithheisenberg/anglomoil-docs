@@ -10,6 +10,10 @@
       "use": "@vercel/static"
     },
     {
+      "src": "wireframes/pages/filtered-view.html",
+      "use": "@vercel/static"
+    },
+    {
       "src": "wireframes/components/navigation.html",
       "use": "@vercel/static"
     },
@@ -28,10 +32,30 @@
       "dest": "/wireframes/pages/document-detail.html"
     },
     {
+      "src": "/filtered-view",
+      "dest": "/wireframes/pages/filtered-view.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/wireframes/pages/index.html"
     }
   ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/wireframes/pages/index.html"
+    },
+    {
+      "source": "/document-detail",
+      "destination": "/wireframes/pages/document-detail.html"
+    },
+    {
+      "source": "/filtered-view",
+      "destination": "/wireframes/pages/filtered-view.html"
+    }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false,
   "headers": [
     {
       "source": "/(.*)",
