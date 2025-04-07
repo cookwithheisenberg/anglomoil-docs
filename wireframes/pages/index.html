@@ -430,7 +430,7 @@
     <!-- Include Navigation -->
     <div id="nav-placeholder"></div>
     <script>
-        fetch('/wireframes/components/navigation.html')
+        fetch('/components/navigation.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('nav-placeholder').innerHTML = data;
@@ -971,7 +971,7 @@
         function showDocumentDetail(title) {
             sessionStorage.setItem('currentDocument', title);
             const encodedTitle = encodeURIComponent(title);
-            window.location.href = `/wireframes/pages/document-detail.html?name=${encodedTitle}`;
+            window.location.href = `/pages/document-detail.html?name=${encodedTitle}`;
         }
 
         function downloadDocument(title) {

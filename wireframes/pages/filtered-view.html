@@ -135,8 +135,9 @@
             padding: 25px;
             border-radius: 8px;
             transition: all 0.3s ease;
-            cursor: pointer;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
         }
         .doc-card:hover {
             transform: translateY(-5px);
@@ -147,6 +148,7 @@
             color: var(--primary-color);
             margin-top: 0;
             margin-bottom: 10px;
+            cursor: pointer;
         }
         .doc-card p {
             color: var(--text-light);
@@ -180,6 +182,40 @@
             color: var(--text-light);
             margin-right: 10px;
         }
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+            padding-top: 15px;
+        }
+        .action-button {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: white;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+        .action-button:hover {
+            background: #333333;
+            color: white;
+            border-color: #333333;
+        }
+        .action-button.preview {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        .action-button.download {
+            background: white;
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
     </style>
 </head>
 <body>
@@ -187,7 +223,7 @@
     <div id="nav-placeholder"></div>
     <script>
         // Fetch and insert navigation
-        fetch('/wireframes/components/navigation.html')
+        fetch('/components/navigation.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('nav-placeholder').innerHTML = data;
@@ -309,35 +345,83 @@
             </div>
 
             <div class="doc-grid">
-                <div class="doc-card" onclick="window.location.href='/document?name=FoodMaster%20HACCP%20Certificate'">
-                    <h4>FoodMaster HACCP Certificate <span class="badge new">New</span></h4>
+                <div class="doc-card">
+                    <h4 onclick="showDocumentDetail('FoodMaster HACCP Certificate')">FoodMaster HACCP Certificate <span class="badge new">New</span></h4>
                     <p><span class="file-type">PDF</span> 2.5MB</p>
                     <p class="date">Added 2 days ago</p>
+                    <div class="card-actions">
+                        <button class="action-button preview" onclick="showDocumentDetail('FoodMaster HACCP Certificate')">
+                            Preview
+                        </button>
+                        <button class="action-button download" onclick="downloadDocument('FoodMaster HACCP Certificate')">
+                            Download
+                        </button>
+                    </div>
                 </div>
-                <div class="doc-card" onclick="window.location.href='/document?name=AgriMaster%20Tractor%20Oil%20Data%20Sheet'">
-                    <h4>AgriMaster Tractor Oil Data Sheet <span class="badge updated">Updated</span></h4>
+                <div class="doc-card">
+                    <h4 onclick="showDocumentDetail('AgriMaster Tractor Oil Data Sheet')">AgriMaster Tractor Oil Data Sheet <span class="badge updated">Updated</span></h4>
                     <p><span class="file-type">PDF</span> 1.8MB</p>
                     <p class="date">Added 3 days ago</p>
+                    <div class="card-actions">
+                        <button class="action-button preview" onclick="showDocumentDetail('AgriMaster Tractor Oil Data Sheet')">
+                            Preview
+                        </button>
+                        <button class="action-button download" onclick="downloadDocument('AgriMaster Tractor Oil Data Sheet')">
+                            Download
+                        </button>
+                    </div>
                 </div>
-                <div class="doc-card" onclick="window.location.href='/document?name=RoadMaster%20Grease%20Technical%20Manual'">
-                    <h4>RoadMaster Grease Technical Manual</h4>
+                <div class="doc-card">
+                    <h4 onclick="showDocumentDetail('RoadMaster Grease Technical Manual')">RoadMaster Grease Technical Manual</h4>
                     <p><span class="file-type">PDF</span> 3.2MB</p>
                     <p class="date">Added 5 days ago</p>
+                    <div class="card-actions">
+                        <button class="action-button preview" onclick="showDocumentDetail('RoadMaster Grease Technical Manual')">
+                            Preview
+                        </button>
+                        <button class="action-button download" onclick="downloadDocument('RoadMaster Grease Technical Manual')">
+                            Download
+                        </button>
+                    </div>
                 </div>
-                <div class="doc-card" onclick="window.location.href='/document?name=SeaMaster%20Marine%20Oil%20Safety%20Data'">
-                    <h4>SeaMaster Marine Oil Safety Data</h4>
+                <div class="doc-card">
+                    <h4 onclick="showDocumentDetail('SeaMaster Marine Oil Safety Data')">SeaMaster Marine Oil Safety Data</h4>
                     <p><span class="file-type">PDF</span> 1.5MB</p>
                     <p class="date">Added 1 week ago</p>
+                    <div class="card-actions">
+                        <button class="action-button preview" onclick="showDocumentDetail('SeaMaster Marine Oil Safety Data')">
+                            Preview
+                        </button>
+                        <button class="action-button download" onclick="downloadDocument('SeaMaster Marine Oil Safety Data')">
+                            Download
+                        </button>
+                    </div>
                 </div>
-                <div class="doc-card" onclick="window.location.href='/document?name=GardenMaster%20Product%20Brochure'">
-                    <h4>GardenMaster Product Brochure</h4>
+                <div class="doc-card">
+                    <h4 onclick="showDocumentDetail('GardenMaster Product Brochure')">GardenMaster Product Brochure</h4>
                     <p><span class="file-type">PDF</span> 4.1MB</p>
                     <p class="date">Added 2 weeks ago</p>
+                    <div class="card-actions">
+                        <button class="action-button preview" onclick="showDocumentDetail('GardenMaster Product Brochure')">
+                            Preview
+                        </button>
+                        <button class="action-button download" onclick="downloadDocument('GardenMaster Product Brochure')">
+                            Download
+                        </button>
+                    </div>
                 </div>
-                <div class="doc-card" onclick="window.location.href='/document?name=RasynHP%20Industrial%20Oil%20Certificate'">
-                    <h4>RasynHP Industrial Oil Certificate</h4>
+                <div class="doc-card">
+                    <h4 onclick="showDocumentDetail('RasynHP Industrial Oil Certificate')">RasynHP Industrial Oil Certificate</h4>
                     <p><span class="file-type">PDF</span> 2.1MB</p>
                     <p class="date">Added 3 weeks ago</p>
+                    <div class="card-actions">
+                        <button class="action-button preview" onclick="showDocumentDetail('RasynHP Industrial Oil Certificate')">
+                            Preview
+                        </button>
+                        <button class="action-button download" onclick="downloadDocument('RasynHP Industrial Oil Certificate')">
+                            Download
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -374,6 +458,19 @@
             document.querySelector('.page-header h1').textContent = titleMap[category];
             document.querySelector('.page-header p').textContent = descriptionMap[category];
             document.title = `${titleMap[category]} - Anglomoil Documentation Hub`;
+        }
+
+        // Functions for document actions
+        function showDocumentDetail(title) {
+            sessionStorage.setItem('currentDocument', title);
+            const encodedTitle = encodeURIComponent(title);
+            window.location.href = `/pages/document-detail.html?name=${encodedTitle}`;
+        }
+
+        function downloadDocument(title) {
+            console.log(`Downloading document: ${title}`);
+            // In a real app, this would redirect to a download endpoint
+            alert(`Downloading ${title}`);
         }
     </script>
 </body>

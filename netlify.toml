@@ -1,0 +1,17 @@
+[build]
+  publish = "wireframes"
+
+[[redirects]]
+  from = "/"
+  to = "/pages/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/document"
+  to = "/pages/document-detail.html"
+  status = 200
+
+[[redirects]]
+  from = "/filtered-view"
+  to = "/pages/filtered-view.html"
+  status = 200 
