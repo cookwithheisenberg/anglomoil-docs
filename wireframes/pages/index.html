@@ -971,7 +971,6 @@
         function showDocumentDetail(title) {
             sessionStorage.setItem('currentDocument', title);
             const encodedTitle = encodeURIComponent(title);
-            window.history.pushState({}, '', `/document/${encodedTitle}`);
             window.location.href = `/document/${encodedTitle}`;
         }
 
@@ -996,8 +995,8 @@
             });
         });
 
-        // Handle browser back/forward navigation
-        window.addEventListener('popstate', function(event) {
+        // Handle initial page load
+        document.addEventListener('DOMContentLoaded', function() {
             const path = window.location.pathname;
             if (path.startsWith('/document/')) {
                 const title = decodeURIComponent(path.split('/document/')[1]);

@@ -4,9 +4,29 @@
     {
       "src": "wireframes/pages/index.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "wireframes/pages/document-detail.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "wireframes/components/navigation.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "wireframes/css/*.css",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "wireframes/js/*.js",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
+    {
+      "src": "/document/(.*)",
+      "dest": "/wireframes/pages/document-detail.html"
+    },
     {
       "src": "/(.*)",
       "dest": "/wireframes/pages/index.html"
