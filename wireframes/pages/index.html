@@ -88,9 +88,7 @@
             font-size: 0.95rem;
         }
         .main-content {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
+            padding: 0;
         }
         .page-header {
             padding: 40px 0;
@@ -108,6 +106,7 @@
             color: var(--text-light);
             max-width: 800px;
             line-height: 1.6;
+            margin-bottom: 0;
         }
         .search-section {
             background: white;
@@ -336,9 +335,14 @@
         }
         .doc-card .description {
             color: var(--text-light);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             line-height: 1.4;
             margin: 0 0 15px 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .doc-card .date {
             font-size: 0.85rem;
@@ -445,468 +449,462 @@
     </style>
 </head>
 <body>
-    <!-- Include Navigation -->
-    <div id="nav-placeholder"></div>
-    <script>
-        fetch('/components/navigation.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('nav-placeholder').innerHTML = data;
-            });
-    </script>
-
-    <div class="container">
-        <div class="sidebar">
-            <div class="filter-section">
-                <h3>By Brand</h3>
-                <div class="select-all">
-                    <input type="checkbox" id="brand-select-all">
-                    <label for="brand-select-all">Select All</label>
-                </div>
-                <div class="filter-options">
-                    <div class="filter-option">
-                        <input type="checkbox" id="brand-agrimaster">
-                        <label for="brand-agrimaster">AgriMaster</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="brand-foodmaster">
-                        <label for="brand-foodmaster">FoodMaster</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="brand-gardenmaster">
-                        <label for="brand-gardenmaster">GardenMaster</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="brand-rasynhp">
-                        <label for="brand-rasynhp">RasynHP</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="brand-rasynpro">
-                        <label for="brand-rasynpro">RasynPRO</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="brand-roadmaster">
-                        <label for="brand-roadmaster">RoadMaster</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="brand-seamaster">
-                        <label for="brand-seamaster">SeaMaster</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="brand-shopmaster">
-                        <label for="brand-shopmaster">ShopMaster</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="filter-section">
-                <h3>By Industry</h3>
-                <div class="select-all">
-                    <input type="checkbox" id="industry-select-all">
-                    <label for="industry-select-all">Select All</label>
-                </div>
-                <div class="filter-options">
-                    <div class="filter-option">
-                        <input type="checkbox" id="industry-agriculture">
-                        <label for="industry-agriculture">Agriculture</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="industry-automotive">
-                        <label for="industry-automotive">Automotive</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="industry-construction">
-                        <label for="industry-construction">Construction</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="industry-food-beverages">
-                        <label for="industry-food-beverages">Manufacturing: Food & Beverages</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="industry-industrial-machinery">
-                        <label for="industry-industrial-machinery">Manufacturing: Industrial & Machinery</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="industry-mining">
-                        <label for="industry-mining">Mining</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="industry-trucking">
-                        <label for="industry-trucking">Trucking, Transport & Marine</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="filter-section">
-                <h3>By Product/Application</h3>
-                <div class="select-all">
-                    <input type="checkbox" id="application-select-all">
-                    <label for="application-select-all">Select All</label>
-                </div>
-                <div class="filter-options">
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-accessory">
-                        <label for="app-accessory">Accessory</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-aerosols">
-                        <label for="app-aerosols">Aerosols</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-compressor">
-                        <label for="app-compressor">Compressor Fluid</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-coolants">
-                        <label for="app-coolants">Coolants</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-diesel">
-                        <label for="app-diesel">Diesel Engine Oil</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-food">
-                        <label for="app-food">Food Manufacturing</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-garden">
-                        <label for="app-garden">Garden Care</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-gear">
-                        <label for="app-gear">Gear Oil</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-grease">
-                        <label for="app-grease">Grease</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-hi-performance">
-                        <label for="app-hi-performance">Hi-Performance Oils</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-hydraulic">
-                        <label for="app-hydraulic">Hydraulic Oil</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-industrial">
-                        <label for="app-industrial">Industrial Oil</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-speciality">
-                        <label for="app-speciality">Industrial Speciality Oils</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-marine">
-                        <label for="app-marine">Marine Oil</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-metal">
-                        <label for="app-metal">Metal Working Fluid</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-petrol">
-                        <label for="app-petrol">Petrol Engine Oil</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-tractor">
-                        <label for="app-tractor">Tractor Oil</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-transmission">
-                        <label for="app-transmission">Transmission Oil</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-turbine">
-                        <label for="app-turbine">Turbine Oil</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="app-workshop">
-                        <label for="app-workshop">Workshop</label>
-                    </div>
-                </div>
-            </div>
+    <div class="page-header">
+        <div class="container">
+            <h1>Anglomoil Documentation Hub</h1>
+            <p>Access and manage all your technical documentation, certificates, and product information in one centralized location. Browse through our comprehensive collection of documents or use filters to find specific items.</p>
         </div>
+    </div>
 
-        <div class="main-content">
-            <div class="page-header">
-                <div class="container">
-                    <h1>Anglomoil Documentation Hub</h1>
-                    <p>Access and manage all your technical documentation, certificates, and product information in one centralized location. Browse through our comprehensive collection of documents or use filters to find specific items.</p>
-                </div>
-            </div>
-
-            <div class="search-section">
-                <div class="search-controls">
-                    <input type="text" class="search-bar" placeholder="Search documents...">
-                    <div class="view-toggle">
-                        <button class="grid-view active" title="Grid View">☷</button>
-                        <button class="list-view" title="List View">☰</button>
-                    </div>
-                </div>
-                <div class="filter-row">
-                    <div class="filter-group">
-                        <button class="filter-button">Document Type</button>
-                        <div class="filter-dropdown">
-                            <div class="filter-header">Document Type</div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="type-certificates">
-                                <label for="type-certificates">Certificates <span class="count">(24)</span></label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="type-data-sheets">
-                                <label for="type-data-sheets">Data Sheets <span class="count">(18)</span></label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="type-safety-data">
-                                <label for="type-safety-data">Safety Data <span class="count">(15)</span></label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="type-manuals">
-                                <label for="type-manuals">Manuals <span class="count">(12)</span></label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="type-brochures">
-                                <label for="type-brochures">Brochures <span class="count">(8)</span></label>
-                            </div>
+    <div class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <div class="sidebar">
+                    <div class="filter-section">
+                        <h3>By Brand</h3>
+                        <div class="select-all">
+                            <input type="checkbox" id="brand-select-all">
+                            <label for="brand-select-all">Select All</label>
                         </div>
-                    </div>
-
-                    <div class="filter-group">
-                        <button class="filter-button">Sort By</button>
-                        <div class="filter-dropdown">
-                            <div class="filter-header">Sort By</div>
+                        <div class="filter-options">
                             <div class="filter-option">
-                                <input type="radio" name="sort" id="sort-alphabetical">
-                                <label for="sort-alphabetical">Alphabetical (A-Z)</label>
+                                <input type="checkbox" id="brand-agrimaster">
+                                <label for="brand-agrimaster">AgriMaster</label>
                             </div>
                             <div class="filter-option">
-                                <input type="radio" name="sort" id="sort-recent">
-                                <label for="sort-recent">Most Recent</label>
+                                <input type="checkbox" id="brand-foodmaster">
+                                <label for="brand-foodmaster">FoodMaster</label>
                             </div>
                             <div class="filter-option">
-                                <input type="radio" name="sort" id="sort-size">
-                                <label for="sort-size">File Size</label>
+                                <input type="checkbox" id="brand-gardenmaster">
+                                <label for="brand-gardenmaster">GardenMaster</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="brand-rasynhp">
+                                <label for="brand-rasynhp">RasynHP</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="brand-rasynpro">
+                                <label for="brand-rasynpro">RasynPRO</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="brand-roadmaster">
+                                <label for="brand-roadmaster">RoadMaster</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="brand-seamaster">
+                                <label for="brand-seamaster">SeaMaster</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="brand-shopmaster">
+                                <label for="brand-shopmaster">ShopMaster</label>
                             </div>
                         </div>
                     </div>
 
-                    <div class="filter-group">
-                        <button class="filter-button">View Type</button>
-                        <div class="filter-dropdown">
-                            <div class="filter-header">View Type</div>
+                    <div class="filter-section">
+                        <h3>By Industry</h3>
+                        <div class="select-all">
+                            <input type="checkbox" id="industry-select-all">
+                            <label for="industry-select-all">Select All</label>
+                        </div>
+                        <div class="filter-options">
                             <div class="filter-option">
-                                <input type="radio" name="view" id="view-preview">
-                                <label for="view-preview">Preview</label>
+                                <input type="checkbox" id="industry-agriculture">
+                                <label for="industry-agriculture">Agriculture</label>
                             </div>
                             <div class="filter-option">
-                                <input type="radio" name="view" id="view-download">
-                                <label for="view-download">Download</label>
+                                <input type="checkbox" id="industry-automotive">
+                                <label for="industry-automotive">Automotive</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="industry-construction">
+                                <label for="industry-construction">Construction</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="industry-food-beverages">
+                                <label for="industry-food-beverages">Manufacturing: Food & Beverages</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="industry-industrial-machinery">
+                                <label for="industry-industrial-machinery">Manufacturing: Industrial & Machinery</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="industry-mining">
+                                <label for="industry-mining">Mining</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="industry-trucking">
+                                <label for="industry-trucking">Trucking, Transport & Marine</label>
                             </div>
                         </div>
                     </div>
 
-                    <div class="filter-group">
-                        <button class="filter-button">Time Period</button>
-                        <div class="filter-dropdown">
-                            <div class="filter-header">Time Period</div>
+                    <div class="filter-section">
+                        <h3>By Product/Application</h3>
+                        <div class="select-all">
+                            <input type="checkbox" id="application-select-all">
+                            <label for="application-select-all">Select All</label>
+                        </div>
+                        <div class="filter-options">
                             <div class="filter-option">
-                                <input type="radio" name="time" id="time-today">
-                                <label for="time-today">Today</label>
+                                <input type="checkbox" id="app-accessory">
+                                <label for="app-accessory">Accessory</label>
                             </div>
                             <div class="filter-option">
-                                <input type="radio" name="time" id="time-week">
-                                <label for="time-week">This Week</label>
+                                <input type="checkbox" id="app-aerosols">
+                                <label for="app-aerosols">Aerosols</label>
                             </div>
                             <div class="filter-option">
-                                <input type="radio" name="time" id="time-month">
-                                <label for="time-month">This Month</label>
+                                <input type="checkbox" id="app-compressor">
+                                <label for="app-compressor">Compressor Fluid</label>
                             </div>
                             <div class="filter-option">
-                                <input type="radio" name="time" id="time-year">
-                                <label for="time-year">This Year</label>
+                                <input type="checkbox" id="app-coolants">
+                                <label for="app-coolants">Coolants</label>
                             </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="app-diesel">
+                                <label for="app-diesel">Diesel Engine Oil</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="app-food">
+                                <label for="app-food">Food Manufacturing</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="app-garden">
+                                <label for="app-garden">Garden Care</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="app-gear">
+                                <label for="app-gear">Gear Oil</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="app-grease">
+                                <label for="app-grease">Grease</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="app-hi-performance">
+                                <label for="app-hi-performance">Hi-Performance Oils</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="app-hydraulic">
+                                <label for="app-hydraulic">Hydraulic Oil</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="app-industrial">
+                                <label for="app-industrial">Industrial Oil</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="app-speciality">
+                                <label for="app-speciality">Industrial Speciality Oils</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="app-marine">
+                                <label for="app-marine">Marine Oil</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="app-metal">
+                                <label for="app-metal">Metal Working Fluid</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="app-petrol">
+                                <label for="app-petrol">Petrol Engine Oil</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="app-tractor">
+                                <label for="app-tractor">Tractor Oil</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="app-transmission">
+                                <label for="app-transmission">Transmission Oil</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="app-turbine">
+                                <label for="app-turbine">Turbine Oil</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="app-workshop">
+                                <label for="app-workshop">Workshop</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-area">
+                    <div class="search-section">
+                        <div class="search-controls">
+                            <input type="text" class="search-bar" placeholder="Search documents...">
+                            <div class="view-toggle">
+                                <button class="grid-view active" title="Grid View">☷</button>
+                                <button class="list-view" title="List View">☰</button>
+                            </div>
+                        </div>
+                        <div class="filter-row">
+                            <div class="filter-group">
+                                <button class="filter-button">Document Type</button>
+                                <div class="filter-dropdown">
+                                    <div class="filter-header">Document Type</div>
+                                    <div class="filter-option">
+                                        <input type="checkbox" id="type-certificates">
+                                        <label for="type-certificates">Certificates <span class="count">(24)</span></label>
+                                    </div>
+                                    <div class="filter-option">
+                                        <input type="checkbox" id="type-data-sheets">
+                                        <label for="type-data-sheets">Data Sheets <span class="count">(18)</span></label>
+                                    </div>
+                                    <div class="filter-option">
+                                        <input type="checkbox" id="type-safety-data">
+                                        <label for="type-safety-data">Safety Data <span class="count">(15)</span></label>
+                                    </div>
+                                    <div class="filter-option">
+                                        <input type="checkbox" id="type-manuals">
+                                        <label for="type-manuals">Manuals <span class="count">(12)</span></label>
+                                    </div>
+                                    <div class="filter-option">
+                                        <input type="checkbox" id="type-brochures">
+                                        <label for="type-brochures">Brochures <span class="count">(8)</span></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <button class="filter-button">Sort By</button>
+                                <div class="filter-dropdown">
+                                    <div class="filter-header">Sort By</div>
+                                    <div class="filter-option">
+                                        <input type="radio" name="sort" id="sort-alphabetical">
+                                        <label for="sort-alphabetical">Alphabetical (A-Z)</label>
+                                    </div>
+                                    <div class="filter-option">
+                                        <input type="radio" name="sort" id="sort-recent">
+                                        <label for="sort-recent">Most Recent</label>
+                                    </div>
+                                    <div class="filter-option">
+                                        <input type="radio" name="sort" id="sort-size">
+                                        <label for="sort-size">File Size</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <button class="filter-button">View Type</button>
+                                <div class="filter-dropdown">
+                                    <div class="filter-header">View Type</div>
+                                    <div class="filter-option">
+                                        <input type="radio" name="view" id="view-preview">
+                                        <label for="view-preview">Preview</label>
+                                    </div>
+                                    <div class="filter-option">
+                                        <input type="radio" name="view" id="view-download">
+                                        <label for="view-download">Download</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <button class="filter-button">Time Period</button>
+                                <div class="filter-dropdown">
+                                    <div class="filter-header">Time Period</div>
+                                    <div class="filter-option">
+                                        <input type="radio" name="time" id="time-today">
+                                        <label for="time-today">Today</label>
+                                    </div>
+                                    <div class="filter-option">
+                                        <input type="radio" name="time" id="time-week">
+                                        <label for="time-week">This Week</label>
+                                    </div>
+                                    <div class="filter-option">
+                                        <input type="radio" name="time" id="time-month">
+                                        <label for="time-month">This Month</label>
+                                    </div>
+                                    <div class="filter-option">
+                                        <input type="radio" name="time" id="time-year">
+                                        <label for="time-year">This Year</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <button class="filter-button">File Size</button>
+                                <div class="filter-dropdown">
+                                    <div class="filter-header">File Size</div>
+                                    <div class="filter-option">
+                                        <input type="radio" name="size" id="size-small">
+                                        <label for="size-small">Small (< 1MB)</label>
+                                    </div>
+                                    <div class="filter-option">
+                                        <input type="radio" name="size" id="size-medium">
+                                        <label for="size-medium">Medium (1-5MB)</label>
+                                    </div>
+                                    <div class="filter-option">
+                                        <input type="radio" name="size" id="size-large">
+                                        <label for="size-large">Large (> 5MB)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter-actions">
+                            <div class="active-filters">
+                                <!-- Active filters will be added here dynamically -->
+                            </div>
+                            <button class="clear-filters">Clear All Filters</button>
                         </div>
                     </div>
 
-                    <div class="filter-group">
-                        <button class="filter-button">File Size</button>
-                        <div class="filter-dropdown">
-                            <div class="filter-header">File Size</div>
-                            <div class="filter-option">
-                                <input type="radio" name="size" id="size-small">
-                                <label for="size-small">Small (< 1MB)</label>
+                    <div class="doc-grid">
+                        <div class="doc-card">
+                            <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Certificate')">
+                                <span class="badge new">New</span>
+                                <div class="file-type">
+                                    <i class="fas fa-file-pdf"></i> PDF
+                                </div>
                             </div>
-                            <div class="filter-option">
-                                <input type="radio" name="size" id="size-medium">
-                                <label for="size-medium">Medium (1-5MB)</label>
+                            <div class="content">
+                                <h4 onclick="showDocumentDetail('FoodMaster HACCP Certificate')">FoodMaster HACCP Certificate</h4>
+                                <div class="metadata-line">
+                                    <span>2.5MB</span>
+                                    <span class="separator">|</span>
+                                    <span>Certificate</span>
+                                </div>
+                                <p class="description">HACCP certification for FoodMaster products ensuring food safety compliance.</p>
+                                <p class="date">Added 2 days ago</p>
                             </div>
-                            <div class="filter-option">
-                                <input type="radio" name="size" id="size-large">
-                                <label for="size-large">Large (> 5MB)</label>
+                            <div class="card-actions">
+                                <button class="action-button preview" onclick="showDocumentDetail('FoodMaster HACCP Certificate')">
+                                    Preview
+                                </button>
+                                <button class="action-button download" onclick="downloadDocument('FoodMaster HACCP Certificate')">
+                                    Download
+                                </button>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="filter-actions">
-                    <div class="active-filters">
-                        <!-- Active filters will be added here dynamically -->
-                    </div>
-                    <button class="clear-filters">Clear All Filters</button>
-                </div>
-            </div>
-
-            <div class="doc-grid">
-                <div class="doc-card">
-                    <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Certificate')">
-                        <span class="badge new">New</span>
-                        <div class="file-type">
-                            <i class="fas fa-file-pdf"></i> PDF
+                        <div class="doc-card">
+                            <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Data+Sheet')">
+                                <span class="badge updated">Updated</span>
+                                <div class="file-type">
+                                    <i class="fas fa-file-pdf"></i> PDF
+                                </div>
+                            </div>
+                            <div class="content">
+                                <h4 onclick="showDocumentDetail('AgriMaster Tractor Oil Data Sheet')">AgriMaster Tractor Oil Data Sheet</h4>
+                                <div class="metadata-line">
+                                    <span>1.8MB</span>
+                                    <span class="separator">|</span>
+                                    <span>Data Sheet</span>
+                                </div>
+                                <p class="description">Technical specifications and performance data for AgriMaster tractor oil, including usage guidelines and maintenance recommendations.</p>
+                                <p class="date">Added 3 days ago</p>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-button preview" onclick="showDocumentDetail('AgriMaster Tractor Oil Data Sheet')">
+                                    Preview
+                                </button>
+                                <button class="action-button download" onclick="downloadDocument('AgriMaster Tractor Oil Data Sheet')">
+                                    Download
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="content">
-                        <h4 onclick="showDocumentDetail('FoodMaster HACCP Certificate')">FoodMaster HACCP Certificate</h4>
-                        <div class="metadata-line">
-                            <span>2.5MB</span>
-                            <span class="separator">|</span>
-                            <span>Certificate</span>
+                        <div class="doc-card">
+                            <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Manual')">
+                                <div class="file-type">
+                                    <i class="fas fa-file-pdf"></i> PDF
+                                </div>
+                            </div>
+                            <div class="content">
+                                <h4 onclick="showDocumentDetail('RoadMaster Grease Technical Manual')">RoadMaster Grease Technical Manual</h4>
+                                <div class="metadata-line">
+                                    <span>3.2MB</span>
+                                    <span class="separator">|</span>
+                                    <span>Manual</span>
+                                </div>
+                                <p class="description">Technical manual for RoadMaster grease, providing detailed information about its composition, application, and maintenance.</p>
+                                <p class="date">Added 5 days ago</p>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-button preview" onclick="showDocumentDetail('RoadMaster Grease Technical Manual')">
+                                    Preview
+                                </button>
+                                <button class="action-button download" onclick="downloadDocument('RoadMaster Grease Technical Manual')">
+                                    Download
+                                </button>
+                            </div>
                         </div>
-                        <p class="description">HACCP certification document for FoodMaster products, ensuring compliance with food safety standards and quality control measures.</p>
-                        <p class="date">Added 2 days ago</p>
-                    </div>
-                    <div class="card-actions">
-                        <button class="action-button preview" onclick="showDocumentDetail('FoodMaster HACCP Certificate')">
-                            Preview
-                        </button>
-                        <button class="action-button download" onclick="downloadDocument('FoodMaster HACCP Certificate')">
-                            Download
-                        </button>
-                    </div>
-                </div>
-                <div class="doc-card">
-                    <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Data+Sheet')">
-                        <span class="badge updated">Updated</span>
-                        <div class="file-type">
-                            <i class="fas fa-file-pdf"></i> PDF
+                        <div class="doc-card">
+                            <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Safety+Data')">
+                                <div class="file-type">
+                                    <i class="fas fa-file-pdf"></i> PDF
+                                </div>
+                            </div>
+                            <div class="content">
+                                <h4 onclick="showDocumentDetail('SeaMaster Marine Oil Safety Data')">SeaMaster Marine Oil Safety Data</h4>
+                                <div class="metadata-line">
+                                    <span>1.5MB</span>
+                                    <span class="separator">|</span>
+                                    <span>Safety Data</span>
+                                </div>
+                                <p class="description">Safety data sheet for SeaMaster marine oil, providing information about its composition, hazards, handling, and storage.</p>
+                                <p class="date">Added 1 week ago</p>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-button preview" onclick="showDocumentDetail('SeaMaster Marine Oil Safety Data')">
+                                    Preview
+                                </button>
+                                <button class="action-button download" onclick="downloadDocument('SeaMaster Marine Oil Safety Data')">
+                                    Download
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="content">
-                        <h4 onclick="showDocumentDetail('AgriMaster Tractor Oil Data Sheet')">AgriMaster Tractor Oil Data Sheet</h4>
-                        <div class="metadata-line">
-                            <span>1.8MB</span>
-                            <span class="separator">|</span>
-                            <span>Data Sheet</span>
+                        <div class="doc-card">
+                            <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Brochure')">
+                                <div class="file-type">
+                                    <i class="fas fa-file-pdf"></i> PDF
+                                </div>
+                            </div>
+                            <div class="content">
+                                <h4 onclick="showDocumentDetail('GardenMaster Product Brochure')">GardenMaster Product Brochure</h4>
+                                <div class="metadata-line">
+                                    <span>4.1MB</span>
+                                    <span class="separator">|</span>
+                                    <span>Brochure</span>
+                                </div>
+                                <p class="description">Product brochure for GardenMaster, showcasing the features and benefits of their gardening products.</p>
+                                <p class="date">Added 2 weeks ago</p>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-button preview" onclick="showDocumentDetail('GardenMaster Product Brochure')">
+                                    Preview
+                                </button>
+                                <button class="action-button download" onclick="downloadDocument('GardenMaster Product Brochure')">
+                                    Download
+                                </button>
+                            </div>
                         </div>
-                        <p class="description">Technical specifications and performance data for AgriMaster tractor oil, including usage guidelines and maintenance recommendations.</p>
-                        <p class="date">Added 3 days ago</p>
-                    </div>
-                    <div class="card-actions">
-                        <button class="action-button preview" onclick="showDocumentDetail('AgriMaster Tractor Oil Data Sheet')">
-                            Preview
-                        </button>
-                        <button class="action-button download" onclick="downloadDocument('AgriMaster Tractor Oil Data Sheet')">
-                            Download
-                        </button>
-                    </div>
-                </div>
-                <div class="doc-card">
-                    <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Manual')">
-                        <div class="file-type">
-                            <i class="fas fa-file-pdf"></i> PDF
+                        <div class="doc-card">
+                            <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Certificate')">
+                                <div class="file-type">
+                                    <i class="fas fa-file-pdf"></i> PDF
+                                </div>
+                            </div>
+                            <div class="content">
+                                <h4 onclick="showDocumentDetail('RasynHP Industrial Oil Certificate')">RasynHP Industrial Oil Certificate</h4>
+                                <div class="metadata-line">
+                                    <span>2.1MB</span>
+                                    <span class="separator">|</span>
+                                    <span>Certificate</span>
+                                </div>
+                                <p class="description">Certificate of industrial oil certification for RasynHP products, ensuring compliance with industry standards and quality control measures.</p>
+                                <p class="date">Added 3 weeks ago</p>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-button preview" onclick="showDocumentDetail('RasynHP Industrial Oil Certificate')">
+                                    Preview
+                                </button>
+                                <button class="action-button download" onclick="downloadDocument('RasynHP Industrial Oil Certificate')">
+                                    Download
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="content">
-                        <h4 onclick="showDocumentDetail('RoadMaster Grease Technical Manual')">RoadMaster Grease Technical Manual</h4>
-                        <div class="metadata-line">
-                            <span>3.2MB</span>
-                            <span class="separator">|</span>
-                            <span>Manual</span>
-                        </div>
-                        <p class="description">Technical manual for RoadMaster grease, providing detailed information about its composition, application, and maintenance.</p>
-                        <p class="date">Added 5 days ago</p>
-                    </div>
-                    <div class="card-actions">
-                        <button class="action-button preview" onclick="showDocumentDetail('RoadMaster Grease Technical Manual')">
-                            Preview
-                        </button>
-                        <button class="action-button download" onclick="downloadDocument('RoadMaster Grease Technical Manual')">
-                            Download
-                        </button>
-                    </div>
-                </div>
-                <div class="doc-card">
-                    <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Safety+Data')">
-                        <div class="file-type">
-                            <i class="fas fa-file-pdf"></i> PDF
-                        </div>
-                    </div>
-                    <div class="content">
-                        <h4 onclick="showDocumentDetail('SeaMaster Marine Oil Safety Data')">SeaMaster Marine Oil Safety Data</h4>
-                        <div class="metadata-line">
-                            <span>1.5MB</span>
-                            <span class="separator">|</span>
-                            <span>Safety Data</span>
-                        </div>
-                        <p class="description">Safety data sheet for SeaMaster marine oil, providing information about its composition, hazards, handling, and storage.</p>
-                        <p class="date">Added 1 week ago</p>
-                    </div>
-                    <div class="card-actions">
-                        <button class="action-button preview" onclick="showDocumentDetail('SeaMaster Marine Oil Safety Data')">
-                            Preview
-                        </button>
-                        <button class="action-button download" onclick="downloadDocument('SeaMaster Marine Oil Safety Data')">
-                            Download
-                        </button>
-                    </div>
-                </div>
-                <div class="doc-card">
-                    <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Brochure')">
-                        <div class="file-type">
-                            <i class="fas fa-file-pdf"></i> PDF
-                        </div>
-                    </div>
-                    <div class="content">
-                        <h4 onclick="showDocumentDetail('GardenMaster Product Brochure')">GardenMaster Product Brochure</h4>
-                        <div class="metadata-line">
-                            <span>4.1MB</span>
-                            <span class="separator">|</span>
-                            <span>Brochure</span>
-                        </div>
-                        <p class="description">Product brochure for GardenMaster, showcasing the features and benefits of their gardening products.</p>
-                        <p class="date">Added 2 weeks ago</p>
-                    </div>
-                    <div class="card-actions">
-                        <button class="action-button preview" onclick="showDocumentDetail('GardenMaster Product Brochure')">
-                            Preview
-                        </button>
-                        <button class="action-button download" onclick="downloadDocument('GardenMaster Product Brochure')">
-                            Download
-                        </button>
-                    </div>
-                </div>
-                <div class="doc-card">
-                    <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Certificate')">
-                        <div class="file-type">
-                            <i class="fas fa-file-pdf"></i> PDF
-                        </div>
-                    </div>
-                    <div class="content">
-                        <h4 onclick="showDocumentDetail('RasynHP Industrial Oil Certificate')">RasynHP Industrial Oil Certificate</h4>
-                        <div class="metadata-line">
-                            <span>2.1MB</span>
-                            <span class="separator">|</span>
-                            <span>Certificate</span>
-                        </div>
-                        <p class="description">Certificate of industrial oil certification for RasynHP products, ensuring compliance with industry standards and quality control measures.</p>
-                        <p class="date">Added 3 weeks ago</p>
-                    </div>
-                    <div class="card-actions">
-                        <button class="action-button preview" onclick="showDocumentDetail('RasynHP Industrial Oil Certificate')">
-                            Preview
-                        </button>
-                        <button class="action-button download" onclick="downloadDocument('RasynHP Industrial Oil Certificate')">
-                            Download
-                        </button>
                     </div>
                 </div>
             </div>
