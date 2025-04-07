@@ -110,18 +110,30 @@
         /* Search Section */
         .search-section {
             background: white;
-            padding: var(--spacing-xl);
+            padding: var(--spacing-lg);
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-1);
-            margin-bottom: var(--spacing-xl);
         }
 
         .search-controls {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
             gap: var(--spacing-md);
-            margin-bottom: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .search-input {
+            flex: 1;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gray-800);
+            box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
         }
 
         .view-toggle {
@@ -133,24 +145,19 @@
         }
 
         .view-toggle button {
-            padding: var(--spacing-xs) var(--spacing-md);
+            padding: var(--spacing-sm) var(--spacing-md);
             border: none;
-            background: transparent;
+            background: none;
             color: var(--gray-600);
-            font-size: 0.875rem;
             cursor: pointer;
+            transition: all 0.2s ease;
             border-radius: var(--radius-sm);
-            transition: all 0.2s;
         }
 
         .view-toggle button.active {
             background: white;
-            color: var(--gray-900);
+            color: var(--gray-800);
             box-shadow: var(--shadow-1);
-        }
-
-        .view-toggle button:hover:not(.active) {
-            background: var(--gray-200);
         }
 
         /* Sidebar */
@@ -206,104 +213,130 @@
         /* Content Area */
         .content-area {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xl);
         }
 
         /* Search Section */
         .search-section {
             background: white;
-            padding: var(--spacing-xl);
+            padding: var(--spacing-lg);
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-1);
-            margin-bottom: var(--spacing-xl);
         }
 
         .search-controls {
             display: flex;
             gap: var(--spacing-md);
-            margin-bottom: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
         }
 
-        .search-bar {
+        .search-input {
             flex: 1;
-            padding: var(--spacing-md);
+            padding: var(--spacing-sm) var(--spacing-md);
             border: 1px solid var(--gray-300);
             border-radius: var(--radius-sm);
-            font-size: 1rem;
+            font-size: 0.875rem;
             transition: all 0.2s ease;
         }
 
-        .search-bar:focus {
+        .search-input:focus {
             outline: none;
-            border-color: var(--gray-600);
-            box-shadow: 0 0 0 2px var(--gray-200);
+            border-color: var(--gray-800);
+            box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
         }
 
-        /* Content Area Filters */
-        .content-filters {
+        .view-toggle {
             display: flex;
-            flex-wrap: wrap;
-            gap: var(--spacing-md);
-            margin-bottom: var(--spacing-lg);
-            padding: var(--spacing-md);
+            gap: var(--spacing-xs);
+            background: var(--gray-100);
+            padding: var(--spacing-xs);
+            border-radius: var(--radius-sm);
+        }
+
+        .view-toggle button {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: none;
+            background: none;
+            color: var(--gray-600);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: var(--radius-sm);
+        }
+
+        .view-toggle button.active {
             background: white;
-            border-radius: var(--radius-md);
+            color: var(--gray-800);
             box-shadow: var(--shadow-1);
         }
 
-        .filter-group {
+        /* Content Filters */
+        .content-filters {
             display: flex;
-            align-items: center;
-            gap: var(--spacing-sm);
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            min-width: 200px;
         }
 
         .filter-group select {
-            padding: var(--spacing-xs) var(--spacing-sm);
+            width: 100%;
+            padding: var(--spacing-sm) var(--spacing-md);
             border: 1px solid var(--gray-300);
             border-radius: var(--radius-sm);
             font-size: 0.875rem;
             color: var(--gray-800);
-            background: white;
+            background-color: white;
             cursor: pointer;
-            min-width: 120px;
+            transition: all 0.2s ease;
+        }
+
+        .filter-group select:hover {
+            border-color: var(--gray-400);
         }
 
         .filter-group select:focus {
             outline: none;
-            border-color: var(--gray-600);
-            box-shadow: 0 0 0 2px var(--gray-200);
+            border-color: var(--gray-800);
+            box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
         }
 
-        /* Active Filter Chips */
+        /* Active Filters */
         .active-filters {
             display: flex;
             flex-wrap: wrap;
             gap: var(--spacing-sm);
-            margin: var(--spacing-md) 0;
-            padding: var(--spacing-sm) var(--spacing-md);
-            background: var(--gray-100);
-            border-radius: var(--radius-sm);
+            margin-top: var(--spacing-md);
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--gray-200);
         }
 
-        .active-filter {
-            background: var(--gray-200);
-            color: var(--gray-800);
-            padding: var(--spacing-xs) var(--spacing-md);
-            border-radius: var(--radius-sm);
-            font-size: 0.875rem;
+        .filter-chip {
             display: flex;
             align-items: center;
             gap: var(--spacing-xs);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            background: var(--gray-100);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            color: var(--gray-800);
         }
 
-        .active-filter .remove {
-            cursor: pointer;
+        .filter-chip button {
+            background: none;
+            border: none;
             color: var(--gray-600);
+            cursor: pointer;
+            padding: 0 var(--spacing-xs);
             font-size: 1rem;
             line-height: 1;
         }
 
-        .active-filter .remove:hover {
-            color: var(--gray-900);
+        .filter-chip button:hover {
+            color: var(--gray-800);
         }
 
         /* Document Cards */
@@ -622,53 +655,59 @@
                 <div class="content-area">
                     <div class="search-section">
                         <div class="search-controls">
-                            <input type="text" class="search-bar" placeholder="Search documents...">
+                            <input type="text" class="search-input" placeholder="Search documents...">
                             <div class="view-toggle">
-                                <button class="grid-view active" onclick="toggleView('grid')">
-                                    <i class="fas fa-th-large"></i> Grid
-                                </button>
-                                <button class="list-view" onclick="toggleView('list')">
-                                    <i class="fas fa-list"></i> List
-                                </button>
+                                <button class="active"><i class="fas fa-th-large"></i></button>
+                                <button><i class="fas fa-list"></i></button>
                             </div>
                         </div>
-                        
-                        <!-- Content Area Filters -->
                         <div class="content-filters">
                             <div class="filter-group">
-                                <select id="docType">
-                                    <option value="">All Types</option>
+                                <select>
+                                    <option value="">Document Type</option>
                                     <option value="pdf">PDF</option>
-                                    <option value="doc">Word</option>
-                                    <option value="xls">Excel</option>
-                                    <option value="img">Image</option>
+                                    <option value="word">Word</option>
+                                    <option value="excel">Excel</option>
+                                    <option value="image">Image</option>
                                 </select>
                             </div>
-                            
                             <div class="filter-group">
-                                <select id="sortBy">
+                                <select>
+                                    <option value="">Sort By</option>
                                     <option value="date">Date Added</option>
                                     <option value="name">Name</option>
                                     <option value="size">File Size</option>
                                 </select>
                             </div>
-                            
                             <div class="filter-group">
-                                <select id="timePeriod">
-                                    <option value="">All Time</option>
+                                <select>
+                                    <option value="">Time Period</option>
                                     <option value="week">Last Week</option>
                                     <option value="month">Last Month</option>
                                     <option value="year">Last Year</option>
                                 </select>
                             </div>
-                            
                             <div class="filter-group">
-                                <select id="fileSize">
-                                    <option value="">Any Size</option>
+                                <select>
+                                    <option value="">File Size</option>
                                     <option value="small">Small (< 1MB)</option>
                                     <option value="medium">Medium (1-5MB)</option>
                                     <option value="large">Large (> 5MB)</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="active-filters" id="activeFilters">
+                            <div class="filter-chip">
+                                <span>PDF</span>
+                                <button>×</button>
+                            </div>
+                            <div class="filter-chip">
+                                <span>Last Month</span>
+                                <button>×</button>
+                            </div>
+                            <div class="filter-chip">
+                                <span>Medium Size</span>
+                                <button>×</button>
                             </div>
                         </div>
                     </div>
@@ -1030,7 +1069,7 @@
         }
 
         // Add functionality for search
-        const searchBar = document.querySelector('.search-bar');
+        const searchBar = document.querySelector('.search-input');
         searchBar.addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase();
             const cards = document.querySelectorAll('.doc-card');
@@ -1057,10 +1096,10 @@
 
         // Filter chip functionality
         const filters = {
-            docType: document.getElementById('docType'),
-            sortBy: document.getElementById('sortBy'),
-            timePeriod: document.getElementById('timePeriod'),
-            fileSize: document.getElementById('fileSize')
+            docType: document.querySelector('.filter-group select[name="docType"]'),
+            sortBy: document.querySelector('.filter-group select[name="sortBy"]'),
+            timePeriod: document.querySelector('.filter-group select[name="timePeriod"]'),
+            fileSize: document.querySelector('.filter-group select[name="fileSize"]')
         };
 
         const activeFiltersContainer = document.getElementById('activeFilters');
