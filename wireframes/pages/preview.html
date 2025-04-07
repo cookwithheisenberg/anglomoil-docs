@@ -210,13 +210,14 @@
 
         /* Related Documents */
         .related-documents {
-            margin-top: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
         }
 
-        .related-documents h3 {
-            font-size: 1.25rem;
-            color: var(--gray-800);
-            margin-bottom: var(--spacing-md);
+        .related-documents h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-lg);
         }
 
         .doc-grid {
@@ -346,6 +347,12 @@
             align-items: center;
             gap: var(--spacing-xs);
         }
+
+        /* File Type Colors */
+        .file-type.pdf { color: #e74c3c; }
+        .file-type.word { color: #2c3e50; }
+        .file-type.excel { color: #27ae60; }
+        .file-type.image { color: #3498db; }
     </style>
 </head>
 <body>
@@ -419,23 +426,23 @@
                 </div>
 
                 <div class="related-documents">
-                    <h3>Related Documents</h3>
+                    <h2>Related Documents</h2>
                     <div class="doc-grid">
                         <div class="doc-card">
-                            <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Manual')">
+                            <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Safety')">
                                 <span class="badge new">New</span>
-                                <div class="file-type">
+                                <div class="file-type pdf">
                                     <i class="fas fa-file-pdf"></i> PDF
                                 </div>
                             </div>
                             <div class="content">
-                                <h4>Technical Manual</h4>
+                                <h4>FoodMaster Safety Data Sheet</h4>
                                 <div class="metadata-line">
-                                    <span>2.8MB</span>
+                                    <span>1.8MB</span>
                                     <span class="separator">|</span>
-                                    <span>Manual</span>
+                                    <span>Safety Data</span>
                                 </div>
-                                <p class="description">Comprehensive technical manual covering installation, operation, and maintenance procedures.</p>
+                                <p class="description">Safety guidelines and handling procedures for FoodMaster products.</p>
                             </div>
                             <div class="card-actions">
                                 <button class="action-button preview">Preview</button>
@@ -444,20 +451,20 @@
                         </div>
 
                         <div class="doc-card">
-                            <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Guidelines')">
+                            <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Technical')">
                                 <span class="badge updated">Updated</span>
-                                <div class="file-type">
+                                <div class="file-type pdf">
                                     <i class="fas fa-file-pdf"></i> PDF
                                 </div>
                             </div>
                             <div class="content">
-                                <h4>Safety Guidelines</h4>
+                                <h4>FoodMaster Technical Data Sheet</h4>
                                 <div class="metadata-line">
-                                    <span>1.5MB</span>
+                                    <span>2.1MB</span>
                                     <span class="separator">|</span>
-                                    <span>Guidelines</span>
+                                    <span>Technical Data</span>
                                 </div>
-                                <p class="description">Important safety information and guidelines for handling and operating the equipment.</p>
+                                <p class="description">Technical specifications and performance data for FoodMaster products.</p>
                             </div>
                             <div class="card-actions">
                                 <button class="action-button preview">Preview</button>
@@ -467,18 +474,18 @@
 
                         <div class="doc-card">
                             <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Guide')">
-                                <div class="file-type">
+                                <div class="file-type pdf">
                                     <i class="fas fa-file-pdf"></i> PDF
                                 </div>
                             </div>
                             <div class="content">
-                                <h4>Installation Guide</h4>
+                                <h4>FoodMaster Application Guide</h4>
                                 <div class="metadata-line">
                                     <span>3.2MB</span>
                                     <span class="separator">|</span>
-                                    <span>Guide</span>
+                                    <span>Application Guide</span>
                                 </div>
-                                <p class="description">Step-by-step instructions for proper installation and setup of the equipment.</p>
+                                <p class="description">Comprehensive guide for applying and using FoodMaster products effectively.</p>
                             </div>
                             <div class="card-actions">
                                 <button class="action-button preview">Preview</button>
