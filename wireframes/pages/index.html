@@ -12,6 +12,7 @@
             --border-color: #cccccc;
             --text-color: #333333;
             --text-light: #666666;
+            --text-dark: #333333;
         }
         body {
             font-family: 'Arial', sans-serif;
@@ -92,21 +93,21 @@
             gap: 30px;
         }
         .page-header {
-            background: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            text-align: center;
+            padding: 40px 0;
+            background: #f8f9fa;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
         }
         .page-header h1 {
-            color: var(--primary-color);
-            margin-top: 0;
-            margin-bottom: 10px;
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 15px;
         }
         .page-header p {
+            font-size: 1.1rem;
             color: var(--text-light);
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 800px;
+            line-height: 1.6;
         }
         .search-section {
             background: white;
@@ -274,23 +275,51 @@
         .doc-card {
             background: white;
             border: 1px solid var(--border-color);
-            padding: 25px;
+            padding: 0;
             border-radius: 8px;
             transition: all 0.3s ease;
             cursor: pointer;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
-            gap: 12px;
         }
         .doc-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
             border-color: #666666;
         }
+        .doc-card .thumbnail {
+            position: relative;
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px 8px 0 0;
+            background-color: #f5f5f5;
+        }
+        .doc-card .thumbnail .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .doc-card .thumbnail .file-type {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(255,255,255,0.9);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .doc-card .content {
+            padding: 20px;
+        }
         .doc-card h4 {
             color: #666666;
-            margin: 0;
+            margin: 0 0 10px 0;
             cursor: pointer;
             font-size: 1.1rem;
         }
@@ -300,6 +329,7 @@
             gap: 10px;
             color: var(--text-light);
             font-size: 0.9rem;
+            margin-bottom: 10px;
         }
         .doc-card .metadata-line .separator {
             color: var(--border-color);
@@ -308,7 +338,7 @@
             color: var(--text-light);
             font-size: 0.95rem;
             line-height: 1.4;
-            margin: 0;
+            margin: 0 0 15px 0;
         }
         .doc-card .date {
             font-size: 0.85rem;
@@ -316,9 +346,10 @@
             margin: 0;
         }
         .card-actions {
+            padding: 15px 20px;
+            border-top: 1px solid var(--border-color);
             display: flex;
             gap: 10px;
-            margin-top: auto;
         }
         .action-button {
             padding: 8px 12px;
@@ -357,29 +388,27 @@
             border-top: 1px solid var(--border-color);
         }
         .clear-filters {
-            padding: 8px 16px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            background: white;
-            color: var(--text-color);
+            display: none;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-light);
             cursor: pointer;
-            transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
-        .clear-filters:hover {
-            background: #666666;
-            color: white;
-            border-color: #666666;
+        .clear-filters.visible {
+            display: flex;
         }
         .active-filters {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+            margin: 20px 0;
         }
         .active-filter {
-            padding: 4px 8px;
-            background: var(--background-color);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
             font-size: 0.9rem;
             display: flex;
             align-items: center;
@@ -387,29 +416,7 @@
         }
         .active-filter .remove {
             cursor: pointer;
-            color: var(--text-light);
-        }
-        .active-filter .remove:hover {
-            color: #666666;
-        }
-        .doc-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            border-color: #666666;
-        }
-        .doc-card h4 {
-            color: #666666;
-            margin-top: 0;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-        .doc-card p {
-            color: var(--text-light);
-            margin-bottom: 5px;
-        }
-        .doc-card .date {
-            font-size: 0.9rem;
-            color: var(--text-light);
+            font-weight: bold;
         }
         .badge {
             display: inline-block;
@@ -623,8 +630,10 @@
 
         <div class="main-content">
             <div class="page-header">
-                <h1>Documentation Hub</h1>
-                <p>Access all product-related materials, including certificates, brochures, and technical documentation for each brand we stock.</p>
+                <div class="container">
+                    <h1>Anglomoil Documentation Hub</h1>
+                    <p>Access and manage all your technical documentation, certificates, and product information in one centralized location. Browse through our comprehensive collection of documents or use filters to find specific items.</p>
+                </div>
             </div>
 
             <div class="search-section">
@@ -749,16 +758,22 @@
 
             <div class="doc-grid">
                 <div class="doc-card">
-                    <h4 onclick="showDocumentDetail('FoodMaster HACCP Certificate')">FoodMaster HACCP Certificate <span class="badge new">New</span></h4>
-                    <div class="metadata-line">
-                        <span class="file-type">PDF</span>
-                        <span class="separator">|</span>
-                        <span>2.5MB</span>
-                        <span class="separator">|</span>
-                        <span>Certificate</span>
+                    <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Certificate')">
+                        <span class="badge new">New</span>
+                        <div class="file-type">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </div>
                     </div>
-                    <p class="description">HACCP certification document for FoodMaster products, ensuring compliance with food safety standards and quality control measures.</p>
-                    <p class="date">Added 2 days ago</p>
+                    <div class="content">
+                        <h4 onclick="showDocumentDetail('FoodMaster HACCP Certificate')">FoodMaster HACCP Certificate</h4>
+                        <div class="metadata-line">
+                            <span>2.5MB</span>
+                            <span class="separator">|</span>
+                            <span>Certificate</span>
+                        </div>
+                        <p class="description">HACCP certification document for FoodMaster products, ensuring compliance with food safety standards and quality control measures.</p>
+                        <p class="date">Added 2 days ago</p>
+                    </div>
                     <div class="card-actions">
                         <button class="action-button preview" onclick="showDocumentDetail('FoodMaster HACCP Certificate')">
                             Preview
@@ -769,16 +784,22 @@
                     </div>
                 </div>
                 <div class="doc-card">
-                    <h4 onclick="showDocumentDetail('AgriMaster Tractor Oil Data Sheet')">AgriMaster Tractor Oil Data Sheet <span class="badge updated">Updated</span></h4>
-                    <div class="metadata-line">
-                        <span class="file-type">PDF</span>
-                        <span class="separator">|</span>
-                        <span>1.8MB</span>
-                        <span class="separator">|</span>
-                        <span>Data Sheet</span>
+                    <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Data+Sheet')">
+                        <span class="badge updated">Updated</span>
+                        <div class="file-type">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </div>
                     </div>
-                    <p class="description">Technical specifications and performance data for AgriMaster tractor oil, including usage guidelines and maintenance recommendations.</p>
-                    <p class="date">Added 3 days ago</p>
+                    <div class="content">
+                        <h4 onclick="showDocumentDetail('AgriMaster Tractor Oil Data Sheet')">AgriMaster Tractor Oil Data Sheet</h4>
+                        <div class="metadata-line">
+                            <span>1.8MB</span>
+                            <span class="separator">|</span>
+                            <span>Data Sheet</span>
+                        </div>
+                        <p class="description">Technical specifications and performance data for AgriMaster tractor oil, including usage guidelines and maintenance recommendations.</p>
+                        <p class="date">Added 3 days ago</p>
+                    </div>
                     <div class="card-actions">
                         <button class="action-button preview" onclick="showDocumentDetail('AgriMaster Tractor Oil Data Sheet')">
                             Preview
@@ -789,16 +810,21 @@
                     </div>
                 </div>
                 <div class="doc-card">
-                    <h4 onclick="showDocumentDetail('RoadMaster Grease Technical Manual')">RoadMaster Grease Technical Manual</h4>
-                    <div class="metadata-line">
-                        <span class="file-type">PDF</span>
-                        <span class="separator">|</span>
-                        <span>3.2MB</span>
-                        <span class="separator">|</span>
-                        <span>Manual</span>
+                    <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Manual')">
+                        <div class="file-type">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </div>
                     </div>
-                    <p class="description">Technical manual for RoadMaster grease, providing detailed information about its composition, application, and maintenance.</p>
-                    <p class="date">Added 5 days ago</p>
+                    <div class="content">
+                        <h4 onclick="showDocumentDetail('RoadMaster Grease Technical Manual')">RoadMaster Grease Technical Manual</h4>
+                        <div class="metadata-line">
+                            <span>3.2MB</span>
+                            <span class="separator">|</span>
+                            <span>Manual</span>
+                        </div>
+                        <p class="description">Technical manual for RoadMaster grease, providing detailed information about its composition, application, and maintenance.</p>
+                        <p class="date">Added 5 days ago</p>
+                    </div>
                     <div class="card-actions">
                         <button class="action-button preview" onclick="showDocumentDetail('RoadMaster Grease Technical Manual')">
                             Preview
@@ -809,16 +835,21 @@
                     </div>
                 </div>
                 <div class="doc-card">
-                    <h4 onclick="showDocumentDetail('SeaMaster Marine Oil Safety Data')">SeaMaster Marine Oil Safety Data</h4>
-                    <div class="metadata-line">
-                        <span class="file-type">PDF</span>
-                        <span class="separator">|</span>
-                        <span>1.5MB</span>
-                        <span class="separator">|</span>
-                        <span>Safety Data</span>
+                    <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Safety+Data')">
+                        <div class="file-type">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </div>
                     </div>
-                    <p class="description">Safety data sheet for SeaMaster marine oil, providing information about its composition, hazards, handling, and storage.</p>
-                    <p class="date">Added 1 week ago</p>
+                    <div class="content">
+                        <h4 onclick="showDocumentDetail('SeaMaster Marine Oil Safety Data')">SeaMaster Marine Oil Safety Data</h4>
+                        <div class="metadata-line">
+                            <span>1.5MB</span>
+                            <span class="separator">|</span>
+                            <span>Safety Data</span>
+                        </div>
+                        <p class="description">Safety data sheet for SeaMaster marine oil, providing information about its composition, hazards, handling, and storage.</p>
+                        <p class="date">Added 1 week ago</p>
+                    </div>
                     <div class="card-actions">
                         <button class="action-button preview" onclick="showDocumentDetail('SeaMaster Marine Oil Safety Data')">
                             Preview
@@ -829,16 +860,21 @@
                     </div>
                 </div>
                 <div class="doc-card">
-                    <h4 onclick="showDocumentDetail('GardenMaster Product Brochure')">GardenMaster Product Brochure</h4>
-                    <div class="metadata-line">
-                        <span class="file-type">PDF</span>
-                        <span class="separator">|</span>
-                        <span>4.1MB</span>
-                        <span class="separator">|</span>
-                        <span>Brochure</span>
+                    <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Brochure')">
+                        <div class="file-type">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </div>
                     </div>
-                    <p class="description">Product brochure for GardenMaster, showcasing the features and benefits of their gardening products.</p>
-                    <p class="date">Added 2 weeks ago</p>
+                    <div class="content">
+                        <h4 onclick="showDocumentDetail('GardenMaster Product Brochure')">GardenMaster Product Brochure</h4>
+                        <div class="metadata-line">
+                            <span>4.1MB</span>
+                            <span class="separator">|</span>
+                            <span>Brochure</span>
+                        </div>
+                        <p class="description">Product brochure for GardenMaster, showcasing the features and benefits of their gardening products.</p>
+                        <p class="date">Added 2 weeks ago</p>
+                    </div>
                     <div class="card-actions">
                         <button class="action-button preview" onclick="showDocumentDetail('GardenMaster Product Brochure')">
                             Preview
@@ -849,16 +885,21 @@
                     </div>
                 </div>
                 <div class="doc-card">
-                    <h4 onclick="showDocumentDetail('RasynHP Industrial Oil Certificate')">RasynHP Industrial Oil Certificate</h4>
-                    <div class="metadata-line">
-                        <span class="file-type">PDF</span>
-                        <span class="separator">|</span>
-                        <span>2.1MB</span>
-                        <span class="separator">|</span>
-                        <span>Certificate</span>
+                    <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Certificate')">
+                        <div class="file-type">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </div>
                     </div>
-                    <p class="description">Certificate of industrial oil certification for RasynHP products, ensuring compliance with industry standards and quality control measures.</p>
-                    <p class="date">Added 3 weeks ago</p>
+                    <div class="content">
+                        <h4 onclick="showDocumentDetail('RasynHP Industrial Oil Certificate')">RasynHP Industrial Oil Certificate</h4>
+                        <div class="metadata-line">
+                            <span>2.1MB</span>
+                            <span class="separator">|</span>
+                            <span>Certificate</span>
+                        </div>
+                        <p class="description">Certificate of industrial oil certification for RasynHP products, ensuring compliance with industry standards and quality control measures.</p>
+                        <p class="date">Added 3 weeks ago</p>
+                    </div>
                     <div class="card-actions">
                         <button class="action-button preview" onclick="showDocumentDetail('RasynHP Industrial Oil Certificate')">
                             Preview
@@ -966,12 +1007,17 @@
         let currentFilters = new Set();
 
         function updateActiveFilters() {
+            const activeFilters = document.querySelector('.active-filters');
+            const clearFiltersButton = document.querySelector('.clear-filters');
+            let hasTopFilters = false;
+
             activeFilters.innerHTML = '';
             currentFilters.forEach(filter => {
                 // Only show filters from the top bar dropdowns
                 if (filter.includes('Sort:') || filter.includes('View:') || 
                     filter.includes('Time:') || filter.includes('Size:') || 
                     filter.includes('Type:')) {
+                    hasTopFilters = true;
                     const filterElement = document.createElement('div');
                     filterElement.className = 'active-filter';
                     filterElement.innerHTML = `
@@ -981,6 +1027,9 @@
                     activeFilters.appendChild(filterElement);
                 }
             });
+
+            // Show/hide clear filters button based on top filters
+            clearFiltersButton.classList.toggle('visible', hasTopFilters);
         }
 
         function addFilter(filter) {
