@@ -281,28 +281,39 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
-        .doc-card.list-view {
-            flex-direction: row;
-            align-items: center;
-            gap: 20px;
-            padding: 15px 25px;
+        .doc-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            border-color: #666666;
         }
-        .doc-card.list-view h4 {
-            flex: 1;
+        .doc-card h4 {
+            color: #666666;
             margin: 0;
+            cursor: pointer;
+            font-size: 1.1rem;
         }
-        .doc-card.list-view .file-info {
+        .doc-card .metadata-line {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 10px;
+            color: var(--text-light);
+            font-size: 0.9rem;
         }
-        .doc-card.list-view .date {
+        .doc-card .metadata-line .separator {
+            color: var(--border-color);
+        }
+        .doc-card .description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.4;
             margin: 0;
         }
-        .doc-card.list-view .card-actions {
-            margin-left: auto;
+        .doc-card .date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin: 0;
         }
         .card-actions {
             display: flex;
@@ -739,7 +750,14 @@
             <div class="doc-grid">
                 <div class="doc-card">
                     <h4 onclick="showDocumentDetail('FoodMaster HACCP Certificate')">FoodMaster HACCP Certificate <span class="badge new">New</span></h4>
-                    <p><span class="file-type">PDF</span> 2.5MB</p>
+                    <div class="metadata-line">
+                        <span class="file-type">PDF</span>
+                        <span class="separator">|</span>
+                        <span>2.5MB</span>
+                        <span class="separator">|</span>
+                        <span>Certificate</span>
+                    </div>
+                    <p class="description">HACCP certification document for FoodMaster products, ensuring compliance with food safety standards and quality control measures.</p>
                     <p class="date">Added 2 days ago</p>
                     <div class="card-actions">
                         <button class="action-button preview" onclick="showDocumentDetail('FoodMaster HACCP Certificate')">
@@ -752,7 +770,14 @@
                 </div>
                 <div class="doc-card">
                     <h4 onclick="showDocumentDetail('AgriMaster Tractor Oil Data Sheet')">AgriMaster Tractor Oil Data Sheet <span class="badge updated">Updated</span></h4>
-                    <p><span class="file-type">PDF</span> 1.8MB</p>
+                    <div class="metadata-line">
+                        <span class="file-type">PDF</span>
+                        <span class="separator">|</span>
+                        <span>1.8MB</span>
+                        <span class="separator">|</span>
+                        <span>Data Sheet</span>
+                    </div>
+                    <p class="description">Technical specifications and performance data for AgriMaster tractor oil, including usage guidelines and maintenance recommendations.</p>
                     <p class="date">Added 3 days ago</p>
                     <div class="card-actions">
                         <button class="action-button preview" onclick="showDocumentDetail('AgriMaster Tractor Oil Data Sheet')">
@@ -765,7 +790,14 @@
                 </div>
                 <div class="doc-card">
                     <h4 onclick="showDocumentDetail('RoadMaster Grease Technical Manual')">RoadMaster Grease Technical Manual</h4>
-                    <p><span class="file-type">PDF</span> 3.2MB</p>
+                    <div class="metadata-line">
+                        <span class="file-type">PDF</span>
+                        <span class="separator">|</span>
+                        <span>3.2MB</span>
+                        <span class="separator">|</span>
+                        <span>Manual</span>
+                    </div>
+                    <p class="description">Technical manual for RoadMaster grease, providing detailed information about its composition, application, and maintenance.</p>
                     <p class="date">Added 5 days ago</p>
                     <div class="card-actions">
                         <button class="action-button preview" onclick="showDocumentDetail('RoadMaster Grease Technical Manual')">
@@ -778,7 +810,14 @@
                 </div>
                 <div class="doc-card">
                     <h4 onclick="showDocumentDetail('SeaMaster Marine Oil Safety Data')">SeaMaster Marine Oil Safety Data</h4>
-                    <p><span class="file-type">PDF</span> 1.5MB</p>
+                    <div class="metadata-line">
+                        <span class="file-type">PDF</span>
+                        <span class="separator">|</span>
+                        <span>1.5MB</span>
+                        <span class="separator">|</span>
+                        <span>Safety Data</span>
+                    </div>
+                    <p class="description">Safety data sheet for SeaMaster marine oil, providing information about its composition, hazards, handling, and storage.</p>
                     <p class="date">Added 1 week ago</p>
                     <div class="card-actions">
                         <button class="action-button preview" onclick="showDocumentDetail('SeaMaster Marine Oil Safety Data')">
@@ -791,7 +830,14 @@
                 </div>
                 <div class="doc-card">
                     <h4 onclick="showDocumentDetail('GardenMaster Product Brochure')">GardenMaster Product Brochure</h4>
-                    <p><span class="file-type">PDF</span> 4.1MB</p>
+                    <div class="metadata-line">
+                        <span class="file-type">PDF</span>
+                        <span class="separator">|</span>
+                        <span>4.1MB</span>
+                        <span class="separator">|</span>
+                        <span>Brochure</span>
+                    </div>
+                    <p class="description">Product brochure for GardenMaster, showcasing the features and benefits of their gardening products.</p>
                     <p class="date">Added 2 weeks ago</p>
                     <div class="card-actions">
                         <button class="action-button preview" onclick="showDocumentDetail('GardenMaster Product Brochure')">
@@ -804,7 +850,14 @@
                 </div>
                 <div class="doc-card">
                     <h4 onclick="showDocumentDetail('RasynHP Industrial Oil Certificate')">RasynHP Industrial Oil Certificate</h4>
-                    <p><span class="file-type">PDF</span> 2.1MB</p>
+                    <div class="metadata-line">
+                        <span class="file-type">PDF</span>
+                        <span class="separator">|</span>
+                        <span>2.1MB</span>
+                        <span class="separator">|</span>
+                        <span>Certificate</span>
+                    </div>
+                    <p class="description">Certificate of industrial oil certification for RasynHP products, ensuring compliance with industry standards and quality control measures.</p>
                     <p class="date">Added 3 weeks ago</p>
                     <div class="card-actions">
                         <button class="action-button preview" onclick="showDocumentDetail('RasynHP Industrial Oil Certificate')">
@@ -915,13 +968,18 @@
         function updateActiveFilters() {
             activeFilters.innerHTML = '';
             currentFilters.forEach(filter => {
-                const filterElement = document.createElement('div');
-                filterElement.className = 'active-filter';
-                filterElement.innerHTML = `
-                    ${filter}
-                    <span class="remove" onclick="removeFilter('${filter}')">×</span>
-                `;
-                activeFilters.appendChild(filterElement);
+                // Only show filters from the top bar dropdowns
+                if (filter.includes('Sort:') || filter.includes('View:') || 
+                    filter.includes('Time:') || filter.includes('Size:') || 
+                    filter.includes('Type:')) {
+                    const filterElement = document.createElement('div');
+                    filterElement.className = 'active-filter';
+                    filterElement.innerHTML = `
+                        ${filter}
+                        <span class="remove" onclick="removeFilter('${filter}')">×</span>
+                    `;
+                    activeFilters.appendChild(filterElement);
+                }
             });
         }
 
