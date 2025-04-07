@@ -6,271 +6,390 @@
     <title>Filtered View - Anglomoil Documentation Hub</title>
     <style>
         :root {
-            --primary-color: #d9230f;
-            --secondary-color: #333;
-            --background-color: #f8f8f8;
-            --border-color: #e0e0e0;
-            --text-color: #333;
-            --text-light: #666;
+            /* Colors */
+            --gray-900: #212121;
+            --gray-800: #424242;
+            --gray-700: #616161;
+            --gray-600: #757575;
+            --gray-500: #9e9e9e;
+            --gray-400: #bdbdbd;
+            --gray-300: #e0e0e0;
+            --gray-200: #eeeeee;
+            --gray-100: #f5f5f5;
+            --gray-50: #fafafa;
+
+            /* Spacing */
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --spacing-xxl: 48px;
+
+            /* Shadows */
+            --shadow-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            --shadow-2: 0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12);
+            --shadow-3: 0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.10);
+
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 16px;
         }
+
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Roboto', 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--background-color);
-            color: var(--text-color);
+            background-color: var(--gray-100);
+            color: var(--gray-900);
+            line-height: 1.5;
         }
+
+        /* Typography */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 500;
+            margin: 0;
+            color: var(--gray-900);
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 500;
+            margin: 0;
+            color: var(--gray-800);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin: 0;
+            color: var(--gray-800);
+        }
+
+        /* Layout */
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 var(--spacing-xl);
         }
+
+        /* Hero Section */
+        .hero-section {
+            background: var(--gray-800);
+            color: white;
+            padding: var(--spacing-xxl) 0;
+            margin-bottom: var(--spacing-xxl);
+        }
+
+        .hero-section h1 {
+            color: white;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero-section p {
+            font-size: 1.125rem;
+            color: var(--gray-200);
+            max-width: 800px;
+            margin: 0;
+        }
+
+        /* Main Content */
         .main-content {
-            padding: 30px 0;
+            padding: var(--spacing-xxl) 0;
         }
+
         .content-wrapper {
             display: grid;
             grid-template-columns: 300px 1fr;
-            gap: 30px;
+            gap: var(--spacing-xl);
             align-items: start;
         }
+
+        /* Sidebar */
         .sidebar {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            height: fit-content;
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-1);
             position: sticky;
-            top: 20px;
+            top: var(--spacing-xl);
         }
+
         .filter-section {
-            margin-bottom: 30px;
+            margin-bottom: var(--spacing-xl);
         }
+
+        .filter-section:last-child {
+            margin-bottom: 0;
+        }
+
         .filter-section h3 {
-            color: var(--primary-color);
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--gray-800);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--gray-300);
+            margin-bottom: var(--spacing-md);
         }
+
         .filter-options {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: var(--spacing-sm);
         }
+
         .filter-option {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 0;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-xs) 0;
         }
+
         .filter-option input[type="checkbox"] {
             width: 16px;
             height: 16px;
-            accent-color: var(--primary-color);
+            accent-color: var(--gray-800);
         }
+
         .filter-option label {
+            font-size: 0.875rem;
+            color: var(--gray-700);
             cursor: pointer;
-            font-size: 0.95rem;
         }
-        .select-all {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 0;
-            margin-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .select-all input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            accent-color: var(--primary-color);
-        }
-        .select-all label {
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.95rem;
-        }
+
+        /* Content Area */
         .content-area {
             flex: 1;
         }
-        .page-header {
-            padding: 40px 0;
-            background: #f8f9fa;
-            margin-bottom: 30px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .page-header h1 {
-            font-size: 2.5rem;
-            color: var(--text-dark);
-            margin-bottom: 15px;
-        }
-        .page-header p {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            max-width: 800px;
-            line-height: 1.6;
-            margin-bottom: 0;
-        }
+
+        /* Search Section */
         .search-section {
             background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-1);
+            margin-bottom: var(--spacing-xl);
         }
+
         .search-bar {
             width: 100%;
-            padding: 15px;
-            border: 2px solid var(--border-color);
-            border-radius: 4px;
-            margin-bottom: 20px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
+            padding: var(--spacing-md);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            transition: all 0.2s ease;
         }
+
         .search-bar:focus {
             outline: none;
-            border-color: var(--primary-color);
+            border-color: var(--gray-600);
+            box-shadow: 0 0 0 2px var(--gray-200);
         }
+
+        /* Document Cards */
         .doc-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
         }
+
         .doc-card {
             background: white;
-            border: 1px solid var(--border-color);
-            padding: 0;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-1);
+            transition: all 0.2s ease;
+            overflow: hidden;
         }
+
         .doc-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            border-color: var(--primary-color);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-2);
         }
+
         .doc-card .thumbnail {
             position: relative;
             height: 160px;
             background-size: cover;
             background-position: center;
-            border-radius: 8px 8px 0 0;
-            background-color: #f5f5f5;
         }
-        .doc-card .thumbnail .badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-        .doc-card .thumbnail .file-type {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            background: rgba(255,255,255,0.9);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            color: var(--text-dark);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
+
         .doc-card .content {
-            padding: 20px;
+            padding: var(--spacing-lg);
         }
+
         .doc-card h4 {
-            color: var(--primary-color);
-            margin: 0;
-            cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--gray-900);
+            margin: 0 0 var(--spacing-sm) 0;
         }
+
         .doc-card .metadata-line {
             display: flex;
             align-items: center;
-            gap: 10px;
-            color: var(--text-light);
-            font-size: 0.9rem;
+            gap: var(--spacing-sm);
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-sm);
         }
-        .doc-card .metadata-line .separator {
-            color: var(--border-color);
-        }
+
         .doc-card .description {
-            color: var(--text-light);
-            font-size: 0.85rem;
-            line-height: 1.4;
-            margin: 0 0 15px 0;
+            font-size: 0.875rem;
+            color: var(--gray-700);
+            margin: 0 0 var(--spacing-md) 0;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            text-overflow: ellipsis;
         }
-        .doc-card .date {
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin: 0;
-        }
-        .badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-left: 10px;
-        }
-        .badge.new {
-            background: #28a745;
-            color: white;
-        }
-        .badge.updated {
-            background: #ffc107;
-            color: var(--text-color);
-        }
-        .file-type {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            background: var(--background-color);
-            color: var(--text-light);
-            margin-right: 10px;
-        }
+
         .card-actions {
+            padding: var(--spacing-md);
+            border-top: 1px solid var(--gray-200);
             display: flex;
-            gap: 10px;
-            margin-top: auto;
-            padding-top: 15px;
+            gap: var(--spacing-sm);
         }
+
         .action-button {
-            padding: 8px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            background: white;
-            color: var(--text-color);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.9rem;
+            transition: all 0.2s ease;
         }
-        .action-button:hover {
-            background: #333333;
-            color: white;
-            border-color: #333333;
-        }
+
         .action-button.preview {
-            background: var(--primary-color);
+            background: var(--gray-800);
             color: white;
-            border-color: var(--primary-color);
+            border: none;
         }
+
+        .action-button.preview:hover {
+            background: var(--gray-900);
+        }
+
         .action-button.download {
             background: white;
-            color: var(--primary-color);
-            border-color: var(--primary-color);
+            color: var(--gray-800);
+        }
+
+        .action-button.download:hover {
+            background: var(--gray-100);
+        }
+
+        /* Badges */
+        .badge {
+            position: absolute;
+            top: var(--spacing-sm);
+            right: var(--spacing-sm);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge.new {
+            background: var(--gray-800);
+            color: white;
+        }
+
+        .badge.updated {
+            background: var(--gray-200);
+            color: var(--gray-800);
+        }
+
+        /* File Type Chip */
+        .file-type {
+            position: absolute;
+            bottom: var(--spacing-sm);
+            left: var(--spacing-sm);
+            background: rgba(255, 255, 255, 0.9);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            color: var(--gray-800);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        /* Content Area Filters */
+        .content-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            padding: var(--spacing-md);
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-1);
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .filter-group label {
+            font-size: 0.875rem;
+            color: var(--gray-700);
+            white-space: nowrap;
+        }
+
+        .filter-group select {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            color: var(--gray-800);
+            background: white;
+            cursor: pointer;
+            min-width: 120px;
+        }
+
+        .filter-group select:focus {
+            outline: none;
+            border-color: var(--gray-600);
+            box-shadow: 0 0 0 2px var(--gray-200);
+        }
+
+        /* Active Filter Chips */
+        .active-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            margin: var(--spacing-md) 0;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--gray-100);
+            border-radius: var(--radius-sm);
+        }
+
+        .active-filter {
+            background: var(--gray-200);
+            color: var(--gray-800);
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .active-filter .remove {
+            cursor: pointer;
+            color: var(--gray-600);
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .active-filter .remove:hover {
+            color: var(--gray-900);
         }
     </style>
 </head>
@@ -309,8 +428,8 @@
         })();
     </script>
 
-    <!-- Header/Hero Section -->
-    <div class="page-header">
+    <!-- Hero Section -->
+    <div class="hero-section">
         <div class="container">
             <h1>Filtered Documents</h1>
             <p>View and manage documents based on your selected filters. Use the sidebar to refine your search or the top bar for sorting and view options.</p>
@@ -406,12 +525,76 @@
                 <div class="content-area">
                     <!-- Search and Top Filters -->
                     <div class="search-section">
-                        <input type="text" class="search-bar" placeholder="Search within selected category...">
-                    </div>
+                        <div class="search-controls">
+                            <input type="text" class="search-bar" placeholder="Search documents...">
+                        </div>
+                        
+                        <!-- Content Area Filters -->
+                        <div class="content-filters">
+                            <div class="filter-group">
+                                <label>Document Type:</label>
+                                <select>
+                                    <option value="">All Types</option>
+                                    <option value="pdf">PDF</option>
+                                    <option value="doc">Word</option>
+                                    <option value="xls">Excel</option>
+                                    <option value="img">Image</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label>Sort By:</label>
+                                <select>
+                                    <option value="date">Date Added</option>
+                                    <option value="name">Name</option>
+                                    <option value="size">File Size</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label>View Type:</label>
+                                <select>
+                                    <option value="grid">Grid</option>
+                                    <option value="list">List</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label>Time Period:</label>
+                                <select>
+                                    <option value="">All Time</option>
+                                    <option value="week">Last Week</option>
+                                    <option value="month">Last Month</option>
+                                    <option value="year">Last Year</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label>File Size:</label>
+                                <select>
+                                    <option value="">Any Size</option>
+                                    <option value="small">Small (< 1MB)</option>
+                                    <option value="medium">Medium (1-5MB)</option>
+                                    <option value="large">Large (> 5MB)</option>
+                                </select>
+                            </div>
+                        </div>
 
-                    <!-- Active Filters -->
-                    <div class="active-filters">
-                        <!-- ... active filters ... -->
+                        <!-- Active Filter Chips -->
+                        <div class="active-filters">
+                            <div class="active-filter">
+                                PDF
+                                <span class="remove">×</span>
+                            </div>
+                            <div class="active-filter">
+                                Last Month
+                                <span class="remove">×</span>
+                            </div>
+                            <div class="active-filter">
+                                Medium Size
+                                <span class="remove">×</span>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Document Cards Grid -->
