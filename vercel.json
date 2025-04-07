@@ -32,7 +32,7 @@
       "dest": "/wireframes/pages/document-detail.html"
     },
     {
-      "src": "/filtered-view",
+      "src": "/filtered-view(.*)",
       "dest": "/wireframes/pages/filtered-view.html"
     },
     {
@@ -48,6 +48,10 @@
     {
       "source": "/filtered-view",
       "destination": "/wireframes/pages/filtered-view.html"
+    },
+    {
+      "source": "/filtered-view/:category",
+      "destination": "/wireframes/pages/filtered-view.html?category=:category"
     },
     {
       "source": "/",

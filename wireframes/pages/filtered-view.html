@@ -186,11 +186,35 @@
     <!-- Include Navigation -->
     <div id="nav-placeholder"></div>
     <script>
+        // Fetch and insert navigation
         fetch('/wireframes/components/navigation.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('nav-placeholder').innerHTML = data;
             });
+
+        // Handle category parameter from URL
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const category = params.get('category');
+            
+            if (category) {
+                // Update page title
+                document.title = `${category.charAt(0).toUpperCase() + category.slice(1)} - Anglomoil Documentation Hub`;
+                
+                // Update header
+                const header = document.querySelector('.page-header h1');
+                if (header) {
+                    header.textContent = `${category.charAt(0).toUpperCase() + category.slice(1)} Documents`;
+                }
+                
+                // Check the corresponding checkbox
+                const checkbox = document.getElementById(`type-${category.toLowerCase()}`);
+                if (checkbox) {
+                    checkbox.checked = true;
+                }
+            }
+        })();
     </script>
 
     <div class="container">
