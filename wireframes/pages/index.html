@@ -107,10 +107,56 @@
             align-items: start;
         }
 
+        /* Search Section */
+        .search-section {
+            background: white;
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-1);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .search-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: var(--spacing-xs);
+            background: var(--gray-100);
+            padding: var(--spacing-xs);
+            border-radius: var(--radius-sm);
+        }
+
+        .view-toggle button {
+            padding: var(--spacing-xs) var(--spacing-md);
+            border: none;
+            background: transparent;
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s;
+        }
+
+        .view-toggle button.active {
+            background: white;
+            color: var(--gray-900);
+            box-shadow: var(--shadow-1);
+        }
+
+        .view-toggle button:hover:not(.active) {
+            background: var(--gray-200);
+        }
+
         /* Sidebar */
         .sidebar {
             background: white;
-            padding: var(--spacing-lg);
+            padding: var(--spacing-xl);
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-1);
             position: sticky;
@@ -119,6 +165,9 @@
 
         .filter-section {
             margin-bottom: var(--spacing-xl);
+            padding: var(--spacing-md);
+            background: var(--gray-50);
+            border-radius: var(--radius-md);
         }
 
         .filter-section:last-child {
@@ -132,6 +181,26 @@
             padding-bottom: var(--spacing-sm);
             border-bottom: 2px solid var(--gray-300);
             margin-bottom: var(--spacing-md);
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .filter-option:hover {
+            background: var(--gray-100);
         }
 
         /* Content Area */
@@ -554,6 +623,14 @@
                     <div class="search-section">
                         <div class="search-controls">
                             <input type="text" class="search-bar" placeholder="Search documents...">
+                            <div class="view-toggle">
+                                <button class="grid-view active" onclick="toggleView('grid')">
+                                    <i class="fas fa-th-large"></i> Grid
+                                </button>
+                                <button class="list-view" onclick="toggleView('list')">
+                                    <i class="fas fa-list"></i> List
+                                </button>
+                            </div>
                         </div>
                         
                         <!-- Content Area Filters -->
@@ -577,13 +654,6 @@
                             </div>
                             
                             <div class="filter-group">
-                                <select id="viewType">
-                                    <option value="grid">Grid</option>
-                                    <option value="list">List</option>
-                                </select>
-                            </div>
-                            
-                            <div class="filter-group">
                                 <select id="timePeriod">
                                     <option value="">All Time</option>
                                     <option value="week">Last Week</option>
@@ -600,11 +670,6 @@
                                     <option value="large">Large (> 5MB)</option>
                                 </select>
                             </div>
-                        </div>
-
-                        <!-- Active Filter Chips -->
-                        <div class="active-filters" id="activeFilters">
-                            <!-- Filter chips will be added here dynamically -->
                         </div>
                     </div>
 
@@ -827,33 +892,56 @@
             });
         });
 
-        // Add functionality for view toggle
-        const viewToggle = document.querySelector('.view-toggle');
-        const docGrid = document.querySelector('.doc-grid');
-        const docCards = document.querySelectorAll('.doc-card');
+        // View toggle functionality
+        function toggleView(view) {
+            const docGrid = document.querySelector('.doc-grid');
+            const docCards = document.querySelectorAll('.doc-card');
+            const gridButton = document.querySelector('.grid-view');
+            const listButton = document.querySelector('.list-view');
 
-        viewToggle.addEventListener('click', function(e) {
-            if (e.target.tagName === 'BUTTON') {
-                // Update active state of buttons
-                viewToggle.querySelectorAll('button').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                e.target.classList.add('active');
-
-                // Toggle view mode
-                if (e.target.classList.contains('grid-view')) {
-                    docGrid.classList.remove('doc-list');
-                    docCards.forEach(card => {
-                        card.classList.remove('list-view');
-                    });
-                } else {
-                    docGrid.classList.add('doc-list');
-                    docCards.forEach(card => {
-                        card.classList.add('list-view');
-                    });
-                }
+            if (view === 'grid') {
+                docGrid.classList.remove('list-view');
+                docCards.forEach(card => card.classList.remove('list-view'));
+                gridButton.classList.add('active');
+                listButton.classList.remove('active');
+            } else {
+                docGrid.classList.add('list-view');
+                docCards.forEach(card => card.classList.add('list-view'));
+                gridButton.classList.remove('active');
+                listButton.classList.add('active');
             }
-        });
+        }
+
+        // Add list view styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .doc-grid.list-view {
+                grid-template-columns: 1fr;
+            }
+            
+            .doc-card.list-view {
+                display: flex;
+                align-items: center;
+                gap: var(--spacing-lg);
+            }
+            
+            .doc-card.list-view .thumbnail {
+                width: 200px;
+                height: 120px;
+                flex-shrink: 0;
+            }
+            
+            .doc-card.list-view .content {
+                flex: 1;
+            }
+            
+            .doc-card.list-view .card-actions {
+                border-top: none;
+                border-left: 1px solid var(--gray-200);
+                padding-left: var(--spacing-lg);
+            }
+        `;
+        document.head.appendChild(style);
 
         // Add functionality for active filters
         const activeFilters = document.querySelector('.active-filters');
@@ -971,7 +1059,6 @@
         const filters = {
             docType: document.getElementById('docType'),
             sortBy: document.getElementById('sortBy'),
-            viewType: document.getElementById('viewType'),
             timePeriod: document.getElementById('timePeriod'),
             fileSize: document.getElementById('fileSize')
         };

@@ -221,73 +221,130 @@
 
         .doc-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: var(--spacing-lg);
         }
 
         .doc-card {
             background: white;
             border-radius: var(--radius-md);
-            overflow: hidden;
             box-shadow: var(--shadow-1);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.2s ease;
+            overflow: hidden;
         }
 
         .doc-card:hover {
-            transform: translateY(-2px);
+            transform: translateY(-4px);
             box-shadow: var(--shadow-2);
         }
 
         .doc-card .thumbnail {
-            height: 150px;
-            background: var(--gray-100);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray-400);
-            font-size: 2rem;
+            position: relative;
+            height: 160px;
+            background-size: cover;
+            background-position: center;
         }
 
         .doc-card .content {
-            padding: var(--spacing-md);
+            padding: var(--spacing-lg);
         }
 
         .doc-card h4 {
-            font-size: 1rem;
-            color: var(--gray-800);
-            margin-bottom: var(--spacing-xs);
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--gray-900);
+            margin: 0 0 var(--spacing-sm) 0;
+        }
+
+        .doc-card .metadata-line {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-sm);
         }
 
         .doc-card .description {
-            font-size: 0.85rem;
-            color: var(--gray-600);
-            margin-bottom: var(--spacing-md);
+            font-size: 0.875rem;
+            color: var(--gray-700);
+            margin: 0 0 var(--spacing-md) 0;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
 
-        .doc-card .actions {
+        .card-actions {
+            padding: var(--spacing-md);
+            border-top: 1px solid var(--gray-200);
             display: flex;
             gap: var(--spacing-sm);
         }
 
-        .doc-card .actions button {
-            flex: 1;
-            padding: var(--spacing-xs) var(--spacing-sm);
+        .action-button {
+            padding: var(--spacing-sm) var(--spacing-md);
             border: 1px solid var(--gray-300);
             border-radius: var(--radius-sm);
-            background: white;
-            color: var(--gray-700);
             font-size: 0.875rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
         }
 
-        .doc-card .actions button:hover {
+        .action-button.preview {
+            background: var(--gray-800);
+            color: white;
+            border: none;
+        }
+
+        .action-button.preview:hover {
+            background: var(--gray-900);
+        }
+
+        .action-button.download {
+            background: white;
+            color: var(--gray-800);
+        }
+
+        .action-button.download:hover {
             background: var(--gray-100);
-            border-color: var(--gray-400);
+        }
+
+        /* Badges */
+        .badge {
+            position: absolute;
+            top: var(--spacing-sm);
+            right: var(--spacing-sm);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge.new {
+            background: var(--gray-800);
+            color: white;
+        }
+
+        .badge.updated {
+            background: var(--gray-200);
+            color: var(--gray-800);
+        }
+
+        /* File Type Chip */
+        .file-type {
+            position: absolute;
+            bottom: var(--spacing-sm);
+            left: var(--spacing-sm);
+            background: rgba(255, 255, 255, 0.9);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            color: var(--gray-800);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
         }
     </style>
 </head>
@@ -365,38 +422,67 @@
                     <h3>Related Documents</h3>
                     <div class="doc-grid">
                         <div class="doc-card">
-                            <div class="thumbnail">📄</div>
+                            <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Manual')">
+                                <span class="badge new">New</span>
+                                <div class="file-type">
+                                    <i class="fas fa-file-pdf"></i> PDF
+                                </div>
+                            </div>
                             <div class="content">
                                 <h4>Technical Manual</h4>
-                                <p class="description">Comprehensive technical manual covering installation, operation, and maintenance procedures.</p>
-                                <div class="actions">
-                                    <button>View</button>
-                                    <button>Download</button>
+                                <div class="metadata-line">
+                                    <span>2.8MB</span>
+                                    <span class="separator">|</span>
+                                    <span>Manual</span>
                                 </div>
+                                <p class="description">Comprehensive technical manual covering installation, operation, and maintenance procedures.</p>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-button preview">Preview</button>
+                                <button class="action-button download">Download</button>
                             </div>
                         </div>
 
                         <div class="doc-card">
-                            <div class="thumbnail">📄</div>
+                            <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Guidelines')">
+                                <span class="badge updated">Updated</span>
+                                <div class="file-type">
+                                    <i class="fas fa-file-pdf"></i> PDF
+                                </div>
+                            </div>
                             <div class="content">
                                 <h4>Safety Guidelines</h4>
-                                <p class="description">Important safety information and guidelines for handling and operating the equipment.</p>
-                                <div class="actions">
-                                    <button>View</button>
-                                    <button>Download</button>
+                                <div class="metadata-line">
+                                    <span>1.5MB</span>
+                                    <span class="separator">|</span>
+                                    <span>Guidelines</span>
                                 </div>
+                                <p class="description">Important safety information and guidelines for handling and operating the equipment.</p>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-button preview">Preview</button>
+                                <button class="action-button download">Download</button>
                             </div>
                         </div>
 
                         <div class="doc-card">
-                            <div class="thumbnail">📄</div>
+                            <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Guide')">
+                                <div class="file-type">
+                                    <i class="fas fa-file-pdf"></i> PDF
+                                </div>
+                            </div>
                             <div class="content">
                                 <h4>Installation Guide</h4>
-                                <p class="description">Step-by-step instructions for proper installation and setup of the equipment.</p>
-                                <div class="actions">
-                                    <button>View</button>
-                                    <button>Download</button>
+                                <div class="metadata-line">
+                                    <span>3.2MB</span>
+                                    <span class="separator">|</span>
+                                    <span>Guide</span>
                                 </div>
+                                <p class="description">Step-by-step instructions for proper installation and setup of the equipment.</p>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-button preview">Preview</button>
+                                <button class="action-button download">Download</button>
                             </div>
                         </div>
                     </div>
