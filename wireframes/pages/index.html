@@ -969,10 +969,8 @@
 
         // Add functionality for document actions
         function showDocumentDetail(title) {
-            // Store the document title in sessionStorage to pass to the detail page
             sessionStorage.setItem('currentDocument', title);
-            // Navigate to the document detail page
-            window.location.href = '/wireframes/pages/document-detail.html';
+            window.location.href = `/document/${encodeURIComponent(title)}`;
         }
 
         function downloadDocument(title) {

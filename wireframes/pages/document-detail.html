@@ -206,24 +206,27 @@
                 document.getElementById('nav-placeholder').innerHTML = data;
             });
 
-        // Get the current document from sessionStorage
-        const currentDocument = sessionStorage.getItem('currentDocument');
+        // Get the document title from the URL or sessionStorage
+        const pathSegments = window.location.pathname.split('/');
+        const documentTitle = pathSegments[pathSegments.length - 1] ? 
+            decodeURIComponent(pathSegments[pathSegments.length - 1]) : 
+            sessionStorage.getItem('currentDocument');
         
         // Update the page title and content based on the current document
-        if (currentDocument) {
-            document.title = `${currentDocument} - Anglomoil`;
-            document.querySelector('.page-header h1').textContent = currentDocument;
+        if (documentTitle) {
+            document.title = `${documentTitle} - Anglomoil`;
+            document.querySelector('.page-header h1').textContent = documentTitle;
             
             // Update document metadata based on the document type
             const metadata = document.querySelector('.metadata-section');
             const fileInfo = document.querySelector('.meta');
             
-            if (currentDocument.includes('Certificate')) {
+            if (documentTitle.includes('Certificate')) {
                 metadata.innerHTML = `
                     <h2>Document Information</h2>
                     <div class="metadata-item">
                         <h3>Brand</h3>
-                        <p>${currentDocument.split(' ')[0]}</p>
+                        <p>${documentTitle.split(' ')[0]}</p>
                     </div>
                     <div class="metadata-item">
                         <h3>Document Type</h3>
@@ -231,23 +234,23 @@
                     </div>
                     <div class="metadata-item">
                         <h3>Category</h3>
-                        <p>${currentDocument.includes('HACCP') ? 'Food Grade Oils' : 'Industrial Oils'}</p>
+                        <p>${documentTitle.includes('HACCP') ? 'Food Grade Oils' : 'Industrial Oils'}</p>
                     </div>
                     <div class="metadata-item">
                         <h3>Certification Type</h3>
-                        <p>${currentDocument.includes('HACCP') ? 'HACCP' : 'ISO 9001'}</p>
+                        <p>${documentTitle.includes('HACCP') ? 'HACCP' : 'ISO 9001'}</p>
                     </div>
                     <div class="metadata-item">
                         <h3>Valid Until</h3>
                         <p>${new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString()}</p>
                     </div>
                 `;
-            } else if (currentDocument.includes('Data Sheet')) {
+            } else if (documentTitle.includes('Data Sheet')) {
                 metadata.innerHTML = `
                     <h2>Document Information</h2>
                     <div class="metadata-item">
                         <h3>Brand</h3>
-                        <p>${currentDocument.split(' ')[0]}</p>
+                        <p>${documentTitle.split(' ')[0]}</p>
                     </div>
                     <div class="metadata-item">
                         <h3>Document Type</h3>
@@ -255,7 +258,7 @@
                     </div>
                     <div class="metadata-item">
                         <h3>Product Type</h3>
-                        <p>${currentDocument.split('Oil')[1].split('Data')[0].trim()}</p>
+                        <p>${documentTitle.split('Oil')[1].split('Data')[0].trim()}</p>
                     </div>
                     <div class="metadata-item">
                         <h3>Version</h3>
@@ -266,12 +269,12 @@
                         <p>${new Date().toLocaleDateString()}</p>
                     </div>
                 `;
-            } else if (currentDocument.includes('Safety Data')) {
+            } else if (documentTitle.includes('Safety Data')) {
                 metadata.innerHTML = `
                     <h2>Document Information</h2>
                     <div class="metadata-item">
                         <h3>Brand</h3>
-                        <p>${currentDocument.split(' ')[0]}</p>
+                        <p>${documentTitle.split(' ')[0]}</p>
                     </div>
                     <div class="metadata-item">
                         <h3>Document Type</h3>
@@ -279,7 +282,7 @@
                     </div>
                     <div class="metadata-item">
                         <h3>Product Type</h3>
-                        <p>${currentDocument.split('Oil')[1].split('Safety')[0].trim()}</p>
+                        <p>${documentTitle.split('Oil')[1].split('Safety')[0].trim()}</p>
                     </div>
                     <div class="metadata-item">
                         <h3>Version</h3>
@@ -299,7 +302,7 @@
             
             // Update related documents based on the current document
             const relatedDocs = document.querySelector('.related-docs');
-            const brand = currentDocument.split(' ')[0];
+            const brand = documentTitle.split(' ')[0];
             
             relatedDocs.innerHTML = `
                 <h2>Related Documents</h2>
@@ -325,7 +328,7 @@
 
         function showDocumentDetail(title) {
             sessionStorage.setItem('currentDocument', title);
-            window.location.reload();
+            window.location.href = `/document/${encodeURIComponent(title)}`;
         }
     </script>
 
