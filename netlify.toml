@@ -7,11 +7,18 @@
   status = 200
 
 [[redirects]]
-  from = "/document"
-  to = "/pages/document-detail.html"
+  from = "/preview"
+  to = "/pages/preview.html"
   status = 200
 
 [[redirects]]
-  from = "/filtered-view"
-  to = "/pages/filtered-view.html"
+  from = "/preview/*"
+  to = "/pages/preview.html"
+  status = 200
+
+# Handle clean URLs without .html
+[[redirects]]
+  from = "/*"
+  to = "/pages/:splat.html"
+  status = 200 
   status = 200 
