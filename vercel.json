@@ -1,36 +1,32 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "wireframes/**/*",
-      "use": "@vercel/static"
-    }
-  ],
+  "outputDirectory": "wireframes",
+  "buildCommand": false,
   "rewrites": [
     {
+      "source": "/",
+      "destination": "/pages/main-hub.html"
+    },
+    {
       "source": "/document",
-      "destination": "/wireframes/pages/document-detail.html"
+      "destination": "/pages/document-detail.html"
     },
     {
       "source": "/filtered-view",
-      "destination": "/wireframes/pages/filtered-view.html"
+      "destination": "/pages/filtered-view.html"
     },
     {
-      "source": "/",
-      "destination": "/wireframes/pages/index.html"
+      "source": "/components/:path*",
+      "destination": "/components/:path*"
+    },
+    {
+      "source": "/css/:path*",
+      "destination": "/css/:path*"
+    },
+    {
+      "source": "/js/:path*",
+      "destination": "/js/:path*"
     }
   ],
   "cleanUrls": true,
-  "trailingSlash": false,
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    }
-  ]
+  "trailingSlash": false
 } 
