@@ -2,27 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "wireframes/pages/index.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "wireframes/pages/document-detail.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "wireframes/pages/filtered-view.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "wireframes/components/navigation.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "wireframes/css/*.css",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "wireframes/js/*.js",
+      "src": "wireframes/**/*",
       "use": "@vercel/static"
     }
   ],
@@ -32,30 +12,16 @@
       "dest": "/wireframes/pages/document-detail.html"
     },
     {
-      "src": "/filtered-view(.*)",
+      "src": "/filtered-view",
       "dest": "/wireframes/pages/filtered-view.html"
     },
     {
-      "src": "/(.*)",
+      "src": "/",
       "dest": "/wireframes/pages/index.html"
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/document/:documentName",
-      "destination": "/wireframes/pages/document-detail.html"
     },
     {
-      "source": "/filtered-view",
-      "destination": "/wireframes/pages/filtered-view.html"
-    },
-    {
-      "source": "/filtered-view/:category",
-      "destination": "/wireframes/pages/filtered-view.html?category=:category"
-    },
-    {
-      "source": "/",
-      "destination": "/wireframes/pages/index.html"
+      "src": "/(.+)",
+      "dest": "/wireframes/$1"
     }
   ],
   "cleanUrls": true,
