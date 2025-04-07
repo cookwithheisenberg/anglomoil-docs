@@ -1,8 +1,15 @@
 {
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "/wireframes/pages/index.html"
+      "src": "wireframes/pages/index.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/wireframes/pages/index.html"
     }
   ],
   "headers": [

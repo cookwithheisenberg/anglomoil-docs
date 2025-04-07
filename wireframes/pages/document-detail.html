@@ -207,10 +207,15 @@
             });
 
         // Get the document title from the URL or sessionStorage
-        const pathSegments = window.location.pathname.split('/');
-        const documentTitle = pathSegments[pathSegments.length - 1] ? 
-            decodeURIComponent(pathSegments[pathSegments.length - 1]) : 
-            sessionStorage.getItem('currentDocument');
+        function getDocumentTitle() {
+            const path = window.location.pathname;
+            if (path.startsWith('/document/')) {
+                return decodeURIComponent(path.split('/document/')[1]);
+            }
+            return sessionStorage.getItem('currentDocument');
+        }
+
+        const documentTitle = getDocumentTitle();
         
         // Update the page title and content based on the current document
         if (documentTitle) {
@@ -328,8 +333,20 @@
 
         function showDocumentDetail(title) {
             sessionStorage.setItem('currentDocument', title);
-            window.location.href = `/document/${encodeURIComponent(title)}`;
+            const encodedTitle = encodeURIComponent(title);
+            window.history.pushState({}, '', `/document/${encodedTitle}`);
+            window.location.href = `/document/${encodedTitle}`;
         }
+
+        // Handle browser back/forward navigation
+        window.addEventListener('popstate', function(event) {
+            const path = window.location.pathname;
+            if (path.startsWith('/document/')) {
+                const title = decodeURIComponent(path.split('/document/')[1]);
+                sessionStorage.setItem('currentDocument', title);
+                window.location.reload();
+            }
+        });
     </script>
 
     <div class="container">
