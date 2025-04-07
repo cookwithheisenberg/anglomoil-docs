@@ -21,4 +21,3 @@
   from = "/*"
   to = "/pages/:splat.html"
   status = 200 
-  status = 200 
