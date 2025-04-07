@@ -205,6 +205,128 @@
             .then(data => {
                 document.getElementById('nav-placeholder').innerHTML = data;
             });
+
+        // Get the current document from sessionStorage
+        const currentDocument = sessionStorage.getItem('currentDocument');
+        
+        // Update the page title and content based on the current document
+        if (currentDocument) {
+            document.title = `${currentDocument} - Anglomoil`;
+            document.querySelector('.page-header h1').textContent = currentDocument;
+            
+            // Update document metadata based on the document type
+            const metadata = document.querySelector('.metadata-section');
+            const fileInfo = document.querySelector('.meta');
+            
+            if (currentDocument.includes('Certificate')) {
+                metadata.innerHTML = `
+                    <h2>Document Information</h2>
+                    <div class="metadata-item">
+                        <h3>Brand</h3>
+                        <p>${currentDocument.split(' ')[0]}</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>Document Type</h3>
+                        <p>Certificate</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>Category</h3>
+                        <p>${currentDocument.includes('HACCP') ? 'Food Grade Oils' : 'Industrial Oils'}</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>Certification Type</h3>
+                        <p>${currentDocument.includes('HACCP') ? 'HACCP' : 'ISO 9001'}</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>Valid Until</h3>
+                        <p>${new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString()}</p>
+                    </div>
+                `;
+            } else if (currentDocument.includes('Data Sheet')) {
+                metadata.innerHTML = `
+                    <h2>Document Information</h2>
+                    <div class="metadata-item">
+                        <h3>Brand</h3>
+                        <p>${currentDocument.split(' ')[0]}</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>Document Type</h3>
+                        <p>Technical Data Sheet</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>Product Type</h3>
+                        <p>${currentDocument.split('Oil')[1].split('Data')[0].trim()}</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>Version</h3>
+                        <p>2.1</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>Last Updated</h3>
+                        <p>${new Date().toLocaleDateString()}</p>
+                    </div>
+                `;
+            } else if (currentDocument.includes('Safety Data')) {
+                metadata.innerHTML = `
+                    <h2>Document Information</h2>
+                    <div class="metadata-item">
+                        <h3>Brand</h3>
+                        <p>${currentDocument.split(' ')[0]}</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>Document Type</h3>
+                        <p>Safety Data Sheet</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>Product Type</h3>
+                        <p>${currentDocument.split('Oil')[1].split('Safety')[0].trim()}</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>Version</h3>
+                        <p>1.0</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>Last Updated</h3>
+                        <p>${new Date().toLocaleDateString()}</p>
+                    </div>
+                `;
+            }
+            
+            // Update file info
+            fileInfo.innerHTML = `
+                <span class="file-type">PDF</span> ${Math.floor(Math.random() * 3 + 1)}.${Math.floor(Math.random() * 9)}MB • Added ${Math.floor(Math.random() * 7)} days ago • Last updated ${Math.floor(Math.random() * 7)} days ago
+            `;
+            
+            // Update related documents based on the current document
+            const relatedDocs = document.querySelector('.related-docs');
+            const brand = currentDocument.split(' ')[0];
+            
+            relatedDocs.innerHTML = `
+                <h2>Related Documents</h2>
+                <div class="doc-grid">
+                    <div class="doc-card" onclick="showDocumentDetail('${brand} Product Brochure')">
+                        <h4>${brand} Product Brochure</h4>
+                        <p><span class="file-type">PDF</span> ${(Math.random() * 3 + 1).toFixed(1)}MB</p>
+                        <p class="date">Added ${Math.floor(Math.random() * 14)} days ago</p>
+                    </div>
+                    <div class="doc-card" onclick="showDocumentDetail('${brand} Technical Manual')">
+                        <h4>${brand} Technical Manual</h4>
+                        <p><span class="file-type">PDF</span> ${(Math.random() * 3 + 1).toFixed(1)}MB</p>
+                        <p class="date">Added ${Math.floor(Math.random() * 14)} days ago</p>
+                    </div>
+                    <div class="doc-card" onclick="showDocumentDetail('${brand} Application Guide')">
+                        <h4>${brand} Application Guide</h4>
+                        <p><span class="file-type">PDF</span> ${(Math.random() * 3 + 1).toFixed(1)}MB</p>
+                        <p class="date">Added ${Math.floor(Math.random() * 14)} days ago</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showDocumentDetail(title) {
+            sessionStorage.setItem('currentDocument', title);
+            window.location.reload();
+        }
     </script>
 
     <div class="container">
@@ -291,131 +413,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        // Get the current document from sessionStorage
-        const currentDocument = sessionStorage.getItem('currentDocument');
-        
-        // Update the page title and content based on the current document
-        if (currentDocument) {
-            document.title = `${currentDocument} - Anglomoil`;
-            document.querySelector('.page-header h1').textContent = currentDocument;
-            
-            // Update document metadata based on the document type
-            const metadata = document.querySelector('.metadata');
-            const fileInfo = document.querySelector('.file-info');
-            
-            if (currentDocument.includes('Certificate')) {
-                metadata.innerHTML = `
-                    <div class="metadata-item">
-                        <span class="label">Brand:</span>
-                        <span class="value">${currentDocument.split(' ')[0]}</span>
-                    </div>
-                    <div class="metadata-item">
-                        <span class="label">Document Type:</span>
-                        <span class="value">Certificate</span>
-                    </div>
-                    <div class="metadata-item">
-                        <span class="label">Category:</span>
-                        <span class="value">${currentDocument.includes('HACCP') ? 'Food Grade Oils' : 'Industrial Oils'}</span>
-                    </div>
-                    <div class="metadata-item">
-                        <span class="label">Certification Type:</span>
-                        <span class="value">${currentDocument.includes('HACCP') ? 'HACCP' : 'ISO 9001'}</span>
-                    </div>
-                    <div class="metadata-item">
-                        <span class="label">Valid Until:</span>
-                        <span class="value">${new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString()}</span>
-                    </div>
-                `;
-            } else if (currentDocument.includes('Data Sheet')) {
-                metadata.innerHTML = `
-                    <div class="metadata-item">
-                        <span class="label">Brand:</span>
-                        <span class="value">${currentDocument.split(' ')[0]}</span>
-                    </div>
-                    <div class="metadata-item">
-                        <span class="label">Document Type:</span>
-                        <span class="value">Technical Data Sheet</span>
-                    </div>
-                    <div class="metadata-item">
-                        <span class="label">Product Type:</span>
-                        <span class="value">${currentDocument.split('Oil')[1].split('Data')[0].trim()}</span>
-                    </div>
-                    <div class="metadata-item">
-                        <span class="label">Version:</span>
-                        <span class="value">2.1</span>
-                    </div>
-                    <div class="metadata-item">
-                        <span class="label">Last Updated:</span>
-                        <span class="value">${new Date().toLocaleDateString()}</span>
-                    </div>
-                `;
-            } else if (currentDocument.includes('Safety Data')) {
-                metadata.innerHTML = `
-                    <div class="metadata-item">
-                        <span class="label">Brand:</span>
-                        <span class="value">${currentDocument.split(' ')[0]}</span>
-                    </div>
-                    <div class="metadata-item">
-                        <span class="label">Document Type:</span>
-                        <span class="value">Safety Data Sheet</span>
-                    </div>
-                    <div class="metadata-item">
-                        <span class="label">Product Type:</span>
-                        <span class="value">${currentDocument.split('Oil')[1].split('Safety')[0].trim()}</span>
-                    </div>
-                    <div class="metadata-item">
-                        <span class="label">Version:</span>
-                        <span class="value">1.0</span>
-                    </div>
-                    <div class="metadata-item">
-                        <span class="label">Last Updated:</span>
-                        <span class="value">${new Date().toLocaleDateString()}</span>
-                    </div>
-                `;
-            }
-            
-            // Update file info
-            fileInfo.innerHTML = `
-                <div class="file-type">PDF</div>
-                <div class="file-size">${Math.floor(Math.random() * 3 + 1)}.${Math.floor(Math.random() * 9)}MB</div>
-                <div class="date-added">Added ${Math.floor(Math.random() * 7)} days ago</div>
-            `;
-            
-            // Update related documents based on the current document
-            const relatedDocs = document.querySelector('.related-docs');
-            const brand = currentDocument.split(' ')[0];
-            const docType = currentDocument.includes('Certificate') ? 'Certificate' : 
-                          currentDocument.includes('Data Sheet') ? 'Data Sheet' : 
-                          currentDocument.includes('Safety Data') ? 'Safety Data' : 'Document';
-            
-            relatedDocs.innerHTML = `
-                <h3>Related Documents</h3>
-                <div class="related-grid">
-                    <div class="related-card" onclick="showDocumentDetail('${brand} Product Brochure')">
-                        <h4>${brand} Product Brochure</h4>
-                        <p><span class="file-type">PDF</span> ${(Math.random() * 3 + 1).toFixed(1)}MB</p>
-                        <p class="date">Added ${Math.floor(Math.random() * 14)} days ago</p>
-                    </div>
-                    <div class="related-card" onclick="showDocumentDetail('${brand} Technical Manual')">
-                        <h4>${brand} Technical Manual</h4>
-                        <p><span class="file-type">PDF</span> ${(Math.random() * 3 + 1).toFixed(1)}MB</p>
-                        <p class="date">Added ${Math.floor(Math.random() * 14)} days ago</p>
-                    </div>
-                    <div class="related-card" onclick="showDocumentDetail('${brand} Application Guide')">
-                        <h4>${brand} Application Guide</h4>
-                        <p><span class="file-type">PDF</span> ${(Math.random() * 3 + 1).toFixed(1)}MB</p>
-                        <p class="date">Added ${Math.floor(Math.random() * 14)} days ago</p>
-                    </div>
-                </div>
-            `;
-        }
-
-        function showDocumentDetail(title) {
-            sessionStorage.setItem('currentDocument', title);
-            window.location.reload();
-        }
-    </script>
 </body>
 </html> 
