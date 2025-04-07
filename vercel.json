@@ -6,22 +6,18 @@
       "use": "@vercel/static"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/document/:documentName",
-      "dest": "/wireframes/pages/document-detail.html"
+      "source": "/document",
+      "destination": "/wireframes/pages/document-detail.html"
     },
     {
-      "src": "/filtered-view",
-      "dest": "/wireframes/pages/filtered-view.html"
+      "source": "/filtered-view",
+      "destination": "/wireframes/pages/filtered-view.html"
     },
     {
-      "src": "/",
-      "dest": "/wireframes/pages/index.html"
-    },
-    {
-      "src": "/(.+)",
-      "dest": "/wireframes/$1"
+      "source": "/",
+      "destination": "/wireframes/pages/index.html"
     }
   ],
   "cleanUrls": true,

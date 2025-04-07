@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodMaster HACCP Certificate - Anglomoil Documentation Hub</title>
+    <title>Document Detail - Anglomoil Documentation Hub</title>
     <style>
         :root {
             --primary-color: #666666;
@@ -199,159 +199,13 @@
 <body>
     <!-- Include Navigation -->
     <div id="nav-placeholder"></div>
-    <script>
-        fetch('/wireframes/components/navigation.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('nav-placeholder').innerHTML = data;
-            });
-
-        // Get the document title from the URL or sessionStorage
-        function getDocumentTitle() {
-            const path = window.location.pathname;
-            if (path.startsWith('/document/')) {
-                return decodeURIComponent(path.split('/document/')[1]);
-            }
-            return sessionStorage.getItem('currentDocument');
-        }
-
-        const documentTitle = getDocumentTitle();
-        
-        // Update the page title and content based on the current document
-        if (documentTitle) {
-            document.title = `${documentTitle} - Anglomoil`;
-            document.querySelector('.page-header h1').textContent = documentTitle;
-            
-            // Update document metadata based on the document type
-            const metadata = document.querySelector('.metadata-section');
-            const fileInfo = document.querySelector('.meta');
-            
-            if (documentTitle.includes('Certificate')) {
-                metadata.innerHTML = `
-                    <h2>Document Information</h2>
-                    <div class="metadata-item">
-                        <h3>Brand</h3>
-                        <p>${documentTitle.split(' ')[0]}</p>
-                    </div>
-                    <div class="metadata-item">
-                        <h3>Document Type</h3>
-                        <p>Certificate</p>
-                    </div>
-                    <div class="metadata-item">
-                        <h3>Category</h3>
-                        <p>${documentTitle.includes('HACCP') ? 'Food Grade Oils' : 'Industrial Oils'}</p>
-                    </div>
-                    <div class="metadata-item">
-                        <h3>Certification Type</h3>
-                        <p>${documentTitle.includes('HACCP') ? 'HACCP' : 'ISO 9001'}</p>
-                    </div>
-                    <div class="metadata-item">
-                        <h3>Valid Until</h3>
-                        <p>${new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString()}</p>
-                    </div>
-                `;
-            } else if (documentTitle.includes('Data Sheet')) {
-                metadata.innerHTML = `
-                    <h2>Document Information</h2>
-                    <div class="metadata-item">
-                        <h3>Brand</h3>
-                        <p>${documentTitle.split(' ')[0]}</p>
-                    </div>
-                    <div class="metadata-item">
-                        <h3>Document Type</h3>
-                        <p>Technical Data Sheet</p>
-                    </div>
-                    <div class="metadata-item">
-                        <h3>Product Type</h3>
-                        <p>${documentTitle.split('Oil')[1].split('Data')[0].trim()}</p>
-                    </div>
-                    <div class="metadata-item">
-                        <h3>Version</h3>
-                        <p>2.1</p>
-                    </div>
-                    <div class="metadata-item">
-                        <h3>Last Updated</h3>
-                        <p>${new Date().toLocaleDateString()}</p>
-                    </div>
-                `;
-            } else if (documentTitle.includes('Safety Data')) {
-                metadata.innerHTML = `
-                    <h2>Document Information</h2>
-                    <div class="metadata-item">
-                        <h3>Brand</h3>
-                        <p>${documentTitle.split(' ')[0]}</p>
-                    </div>
-                    <div class="metadata-item">
-                        <h3>Document Type</h3>
-                        <p>Safety Data Sheet</p>
-                    </div>
-                    <div class="metadata-item">
-                        <h3>Product Type</h3>
-                        <p>${documentTitle.split('Oil')[1].split('Safety')[0].trim()}</p>
-                    </div>
-                    <div class="metadata-item">
-                        <h3>Version</h3>
-                        <p>1.0</p>
-                    </div>
-                    <div class="metadata-item">
-                        <h3>Last Updated</h3>
-                        <p>${new Date().toLocaleDateString()}</p>
-                    </div>
-                `;
-            }
-            
-            // Update file info
-            fileInfo.innerHTML = `
-                <span class="file-type">PDF</span> ${Math.floor(Math.random() * 3 + 1)}.${Math.floor(Math.random() * 9)}MB • Added ${Math.floor(Math.random() * 7)} days ago • Last updated ${Math.floor(Math.random() * 7)} days ago
-            `;
-            
-            // Update related documents based on the current document
-            const relatedDocs = document.querySelector('.related-docs');
-            const brand = documentTitle.split(' ')[0];
-            
-            relatedDocs.innerHTML = `
-                <h2>Related Documents</h2>
-                <div class="doc-grid">
-                    <div class="doc-card" onclick="showDocumentDetail('${brand} Product Brochure')">
-                        <h4>${brand} Product Brochure</h4>
-                        <p><span class="file-type">PDF</span> ${(Math.random() * 3 + 1).toFixed(1)}MB</p>
-                        <p class="date">Added ${Math.floor(Math.random() * 14)} days ago</p>
-                    </div>
-                    <div class="doc-card" onclick="showDocumentDetail('${brand} Technical Manual')">
-                        <h4>${brand} Technical Manual</h4>
-                        <p><span class="file-type">PDF</span> ${(Math.random() * 3 + 1).toFixed(1)}MB</p>
-                        <p class="date">Added ${Math.floor(Math.random() * 14)} days ago</p>
-                    </div>
-                    <div class="doc-card" onclick="showDocumentDetail('${brand} Application Guide')">
-                        <h4>${brand} Application Guide</h4>
-                        <p><span class="file-type">PDF</span> ${(Math.random() * 3 + 1).toFixed(1)}MB</p>
-                        <p class="date">Added ${Math.floor(Math.random() * 14)} days ago</p>
-                    </div>
-                </div>
-            `;
-        }
-
-        function showDocumentDetail(title) {
-            sessionStorage.setItem('currentDocument', title);
-            const encodedTitle = encodeURIComponent(title);
-            window.location.href = `/document/${encodedTitle}`;
-        }
-
-        // Handle initial page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const path = window.location.pathname;
-            if (path.startsWith('/document/')) {
-                const title = decodeURIComponent(path.split('/document/')[1]);
-                sessionStorage.setItem('currentDocument', title);
-            }
-        });
-    </script>
-
     <div class="container">
         <div class="page-header">
-            <h1>FoodMaster HACCP Certificate <span class="badge new">New</span></h1>
+            <h1 id="doc-title"></h1>
             <div class="meta">
-                <span class="file-type">PDF</span> 2.5MB • Added 2 days ago • Last updated 2 days ago
+                <span class="file-type">PDF</span>
+                <span>2.5MB</span>
+                <span>Last updated: April 7, 2024</span>
             </div>
         </div>
 
@@ -431,5 +285,70 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Fetch and insert navigation
+        fetch('/wireframes/components/navigation.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+            });
+
+        // Get document name from query parameter
+        const params = new URLSearchParams(window.location.search);
+        const documentName = decodeURIComponent(params.get("name") || "No name provided");
+        
+        // Update page title and document title
+        document.title = `${documentName} - Anglomoil Documentation Hub`;
+        document.getElementById("doc-title").innerText = documentName;
+        
+        // Update metadata based on document type
+        const metadata = document.querySelector('.metadata-section');
+        if (documentName.includes('Certificate')) {
+            metadata.innerHTML = `
+                <h2>Document Information</h2>
+                <div class="metadata-item">
+                    <h3>Brand</h3>
+                    <p>${documentName.split(' ')[0]}</p>
+                </div>
+                <div class="metadata-item">
+                    <h3>Document Type</h3>
+                    <p>Certificate</p>
+                </div>
+                <div class="metadata-item">
+                    <h3>Category</h3>
+                    <p>${documentName.includes('HACCP') ? 'Food Grade Oils' : 'Industrial Oils'}</p>
+                </div>
+                <div class="metadata-item">
+                    <h3>Certification Type</h3>
+                    <p>${documentName.includes('HACCP') ? 'HACCP' : 'ISO 9001'}</p>
+                </div>
+                <div class="metadata-item">
+                    <h3>Valid Until</h3>
+                    <p>${new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString()}</p>
+                </div>
+            `;
+        } else if (documentName.includes('Data Sheet')) {
+            metadata.innerHTML = `
+                <h2>Document Information</h2>
+                <div class="metadata-item">
+                    <h3>Brand</h3>
+                    <p>${documentName.split(' ')[0]}</p>
+                </div>
+                <div class="metadata-item">
+                    <h3>Document Type</h3>
+                    <p>Technical Data Sheet</p>
+                </div>
+                <div class="metadata-item">
+                    <h3>Version</h3>
+                    <p>2.1</p>
+                </div>
+                <div class="metadata-item">
+                    <h3>Last Updated</h3>
+                    <p>${new Date().toLocaleDateString()}</p>
+                </div>
+            `;
+        }
+    </script>
 </body>
 </html> 
