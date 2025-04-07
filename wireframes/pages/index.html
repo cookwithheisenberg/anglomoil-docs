@@ -187,12 +187,6 @@
             gap: var(--spacing-sm);
         }
 
-        .filter-group label {
-            font-size: 0.875rem;
-            color: var(--gray-700);
-            white-space: nowrap;
-        }
-
         .filter-group select {
             padding: var(--spacing-xs) var(--spacing-sm);
             border: 1px solid var(--gray-300);
@@ -565,8 +559,7 @@
                         <!-- Content Area Filters -->
                         <div class="content-filters">
                             <div class="filter-group">
-                                <label>Document Type:</label>
-                                <select>
+                                <select id="docType">
                                     <option value="">All Types</option>
                                     <option value="pdf">PDF</option>
                                     <option value="doc">Word</option>
@@ -576,8 +569,7 @@
                             </div>
                             
                             <div class="filter-group">
-                                <label>Sort By:</label>
-                                <select>
+                                <select id="sortBy">
                                     <option value="date">Date Added</option>
                                     <option value="name">Name</option>
                                     <option value="size">File Size</option>
@@ -585,16 +577,14 @@
                             </div>
                             
                             <div class="filter-group">
-                                <label>View Type:</label>
-                                <select>
+                                <select id="viewType">
                                     <option value="grid">Grid</option>
                                     <option value="list">List</option>
                                 </select>
                             </div>
                             
                             <div class="filter-group">
-                                <label>Time Period:</label>
-                                <select>
+                                <select id="timePeriod">
                                     <option value="">All Time</option>
                                     <option value="week">Last Week</option>
                                     <option value="month">Last Month</option>
@@ -603,8 +593,7 @@
                             </div>
                             
                             <div class="filter-group">
-                                <label>File Size:</label>
-                                <select>
+                                <select id="fileSize">
                                     <option value="">Any Size</option>
                                     <option value="small">Small (< 1MB)</option>
                                     <option value="medium">Medium (1-5MB)</option>
@@ -614,19 +603,8 @@
                         </div>
 
                         <!-- Active Filter Chips -->
-                        <div class="active-filters">
-                            <div class="active-filter">
-                                PDF
-                                <span class="remove">×</span>
-                            </div>
-                            <div class="active-filter">
-                                Last Month
-                                <span class="remove">×</span>
-                            </div>
-                            <div class="active-filter">
-                                Medium Size
-                                <span class="remove">×</span>
-                            </div>
+                        <div class="active-filters" id="activeFilters">
+                            <!-- Filter chips will be added here dynamically -->
                         </div>
                     </div>
 
@@ -987,6 +965,55 @@
                 sessionStorage.setItem('currentDocument', title);
                 window.location.href = '/wireframes/pages/document-detail.html';
             }
+        });
+
+        // Filter chip functionality
+        const filters = {
+            docType: document.getElementById('docType'),
+            sortBy: document.getElementById('sortBy'),
+            viewType: document.getElementById('viewType'),
+            timePeriod: document.getElementById('timePeriod'),
+            fileSize: document.getElementById('fileSize')
+        };
+
+        const activeFiltersContainer = document.getElementById('activeFilters');
+
+        function createFilterChip(filterId, value, label) {
+            if (!value) return;
+            
+            const chip = document.createElement('div');
+            chip.className = 'active-filter';
+            chip.dataset.filter = filterId;
+            chip.dataset.value = value;
+            
+            chip.innerHTML = `
+                ${label}
+                <span class="remove">×</span>
+            `;
+            
+            chip.querySelector('.remove').addEventListener('click', () => {
+                filters[filterId].value = '';
+                chip.remove();
+            });
+            
+            return chip;
+        }
+
+        Object.entries(filters).forEach(([filterId, select]) => {
+            select.addEventListener('change', () => {
+                const value = select.value;
+                const label = select.options[select.selectedIndex].text;
+                
+                // Remove existing chip for this filter
+                const existingChip = activeFiltersContainer.querySelector(`[data-filter="${filterId}"]`);
+                if (existingChip) existingChip.remove();
+                
+                // Add new chip if a value is selected
+                if (value) {
+                    const chip = createFilterChip(filterId, value, label);
+                    activeFiltersContainer.appendChild(chip);
+                }
+            });
         });
     </script>
 </body>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Preview - Anglomoil Documentation Hub</title>
+    <style>
+        /* Design System Variables */
+        :root {
+            /* Colors */
+            --gray-900: #1a1a1a;
+            --gray-800: #2d2d2d;
+            --gray-700: #4a4a4a;
+            --gray-600: #666666;
+            --gray-500: #808080;
+            --gray-400: #999999;
+            --gray-300: #cccccc;
+            --gray-200: #e6e6e6;
+            --gray-100: #f2f2f2;
+            --gray-50: #fafafa;
+            
+            /* Spacing */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            
+            /* Shadows */
+            --shadow-1: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-2: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-3: 0 10px 15px rgba(0,0,0,0.1);
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.5;
+            color: var(--gray-900);
+            background: var(--gray-50);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+        }
+
+        /* Hero Section */
+        .page-header {
+            background: var(--gray-800);
+            color: white;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 500;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--gray-200);
+            margin-bottom: 0;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: var(--spacing-xl);
+            padding: var(--spacing-lg);
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-2);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: var(--spacing-lg);
+            height: fit-content;
+            background: white;
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md);
+            box-shadow: var(--shadow-1);
+        }
+
+        .sidebar h2 {
+            font-size: 1.25rem;
+            color: var(--gray-800);
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .filter-section {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .filter-section h3 {
+            font-size: 1rem;
+            color: var(--gray-700);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .filter-option:hover {
+            background: var(--gray-100);
+        }
+
+        .filter-option input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .filter-option label {
+            font-size: 0.875rem;
+            color: var(--gray-700);
+            cursor: pointer;
+        }
+
+        /* Content Area */
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xl);
+        }
+
+        /* Document Preview */
+        .document-preview {
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-1);
+            overflow: hidden;
+        }
+
+        .preview-header {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .preview-header h2 {
+            font-size: 1.25rem;
+            color: var(--gray-800);
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .preview-actions button {
+            padding: var(--spacing-xs) var(--spacing-md);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            background: white;
+            color: var(--gray-700);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .preview-actions button:hover {
+            background: var(--gray-100);
+            border-color: var(--gray-400);
+        }
+
+        .preview-content {
+            padding: var(--spacing-lg);
+            min-height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--gray-50);
+        }
+
+        /* Related Documents */
+        .related-documents {
+            margin-top: var(--spacing-xl);
+        }
+
+        .related-documents h3 {
+            font-size: 1.25rem;
+            color: var(--gray-800);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .doc-card {
+            background: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-2);
+        }
+
+        .doc-card .thumbnail {
+            height: 150px;
+            background: var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-400);
+            font-size: 2rem;
+        }
+
+        .doc-card .content {
+            padding: var(--spacing-md);
+        }
+
+        .doc-card h4 {
+            font-size: 1rem;
+            color: var(--gray-800);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .doc-card .description {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            margin-bottom: var(--spacing-md);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .doc-card .actions {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .doc-card .actions button {
+            flex: 1;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            background: white;
+            color: var(--gray-700);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .doc-card .actions button:hover {
+            background: var(--gray-100);
+            border-color: var(--gray-400);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>Document Preview</h1>
+            <p>View and interact with your selected document</p>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <h2>Document Details</h2>
+                <div class="filter-section">
+                    <h3>Metadata</h3>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="meta1">
+                            <label for="meta1">Created: 2024-03-15</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="meta2">
+                            <label for="meta2">Modified: 2024-03-20</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="meta3">
+                            <label for="meta3">Size: 2.5 MB</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="meta4">
+                            <label for="meta4">Type: PDF</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3>Tags</h3>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="tag1">
+                            <label for="tag1">Technical</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="tag2">
+                            <label for="tag2">Specification</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="tag3">
+                            <label for="tag3">Product</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-area">
+                <div class="document-preview">
+                    <div class="preview-header">
+                        <h2>Product Specification Document</h2>
+                        <div class="preview-actions">
+                            <button>Download</button>
+                            <button>Share</button>
+                            <button>Print</button>
+                        </div>
+                    </div>
+                    <div class="preview-content">
+                        <!-- PDF Preview Placeholder -->
+                        <div style="text-align: center; color: var(--gray-400);">
+                            <div style="font-size: 3rem; margin-bottom: var(--spacing-md);">📄</div>
+                            <p>PDF Preview</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="related-documents">
+                    <h3>Related Documents</h3>
+                    <div class="doc-grid">
+                        <div class="doc-card">
+                            <div class="thumbnail">📄</div>
+                            <div class="content">
+                                <h4>Technical Manual</h4>
+                                <p class="description">Comprehensive technical manual covering installation, operation, and maintenance procedures.</p>
+                                <div class="actions">
+                                    <button>View</button>
+                                    <button>Download</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="doc-card">
+                            <div class="thumbnail">📄</div>
+                            <div class="content">
+                                <h4>Safety Guidelines</h4>
+                                <p class="description">Important safety information and guidelines for handling and operating the equipment.</p>
+                                <div class="actions">
+                                    <button>View</button>
+                                    <button>Download</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="doc-card">
+                            <div class="thumbnail">📄</div>
+                            <div class="content">
+                                <h4>Installation Guide</h4>
+                                <p class="description">Step-by-step instructions for proper installation and setup of the equipment.</p>
+                                <div class="actions">
+                                    <button>View</button>
+                                    <button>Download</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
