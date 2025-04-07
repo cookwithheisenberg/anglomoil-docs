@@ -4,15 +4,19 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/pages/main-hub.html"
+      "destination": "/wireframes/pages/index.html"
+    },
+    {
+      "source": "/document/:name",
+      "destination": "/wireframes/pages/document-detail.html"
     },
     {
       "source": "/document",
-      "destination": "/pages/document-detail.html"
+      "destination": "/wireframes/pages/document-detail.html"
     },
     {
       "source": "/filtered-view",
-      "destination": "/pages/filtered-view.html"
+      "destination": "/wireframes/pages/filtered-view.html"
     },
     {
       "source": "/components/:path*",
@@ -25,6 +29,10 @@
     {
       "source": "/js/:path*",
       "destination": "/js/:path*"
+    },
+    {
+      "source": "/wireframes/:path*",
+      "destination": "/wireframes/:path*"
     }
   ],
   "cleanUrls": true,

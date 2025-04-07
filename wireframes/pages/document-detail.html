@@ -287,68 +287,84 @@
     </div>
 
     <script>
-        // Fetch and insert navigation
+        // Function to get document name from URL
+        function getDocumentName() {
+            // Try query parameter first
+            const urlParams = new URLSearchParams(window.location.search);
+            const nameFromQuery = urlParams.get('name');
+            if (nameFromQuery) return decodeURIComponent(nameFromQuery);
+
+            // Try path parameter
+            const path = window.location.pathname;
+            const matches = path.match(/\/document\/(.+)$/);
+            if (matches && matches[1]) {
+                return decodeURIComponent(matches[1].replace(/-/g, ' '));
+            }
+
+            // Fallback to sessionStorage
+            return sessionStorage.getItem('currentDocument') || 'Unknown Document';
+        }
+
+        // Update page title and content
+        function updateDocumentDetails() {
+            const documentName = getDocumentName();
+            document.title = documentName + ' - Anglomoil Documentation Hub';
+            document.getElementById('doc-title').textContent = documentName;
+
+            // Update metadata based on document type
+            const metadataSection = document.querySelector('.metadata-section');
+            if (documentName.includes('Certificate')) {
+                metadataSection.innerHTML = `
+                    <h2>Document Information</h2>
+                    <div class="metadata-item">
+                        <h3>Brand</h3>
+                        <p>${documentName.split(' ')[0]}</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>Document Type</h3>
+                        <p>Certificate</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>Category</h3>
+                        <p>Certification</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>Validity</h3>
+                        <p>2024-2025</p>
+                    </div>
+                `;
+            } else if (documentName.includes('Data Sheet')) {
+                metadataSection.innerHTML = `
+                    <h2>Document Information</h2>
+                    <div class="metadata-item">
+                        <h3>Brand</h3>
+                        <p>${documentName.split(' ')[0]}</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>Document Type</h3>
+                        <p>Data Sheet</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>Version</h3>
+                        <p>2.1</p>
+                    </div>
+                    <div class="metadata-item">
+                        <h3>Last Updated</h3>
+                        <p>March 15, 2024</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Load navigation
         fetch('/wireframes/components/navigation.html')
             .then(response => response.text())
-            .then(data => {
-                document.getElementById('nav-placeholder').innerHTML = data;
+            .then(html => {
+                document.getElementById('nav-placeholder').innerHTML = html;
             });
 
-        // Get document name from query parameter
-        const params = new URLSearchParams(window.location.search);
-        const documentName = decodeURIComponent(params.get("name") || "No name provided");
-        
-        // Update page title and document title
-        document.title = `${documentName} - Anglomoil Documentation Hub`;
-        document.getElementById("doc-title").innerText = documentName;
-        
-        // Update metadata based on document type
-        const metadata = document.querySelector('.metadata-section');
-        if (documentName.includes('Certificate')) {
-            metadata.innerHTML = `
-                <h2>Document Information</h2>
-                <div class="metadata-item">
-                    <h3>Brand</h3>
-                    <p>${documentName.split(' ')[0]}</p>
-                </div>
-                <div class="metadata-item">
-                    <h3>Document Type</h3>
-                    <p>Certificate</p>
-                </div>
-                <div class="metadata-item">
-                    <h3>Category</h3>
-                    <p>${documentName.includes('HACCP') ? 'Food Grade Oils' : 'Industrial Oils'}</p>
-                </div>
-                <div class="metadata-item">
-                    <h3>Certification Type</h3>
-                    <p>${documentName.includes('HACCP') ? 'HACCP' : 'ISO 9001'}</p>
-                </div>
-                <div class="metadata-item">
-                    <h3>Valid Until</h3>
-                    <p>${new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString()}</p>
-                </div>
-            `;
-        } else if (documentName.includes('Data Sheet')) {
-            metadata.innerHTML = `
-                <h2>Document Information</h2>
-                <div class="metadata-item">
-                    <h3>Brand</h3>
-                    <p>${documentName.split(' ')[0]}</p>
-                </div>
-                <div class="metadata-item">
-                    <h3>Document Type</h3>
-                    <p>Technical Data Sheet</p>
-                </div>
-                <div class="metadata-item">
-                    <h3>Version</h3>
-                    <p>2.1</p>
-                </div>
-                <div class="metadata-item">
-                    <h3>Last Updated</h3>
-                    <p>${new Date().toLocaleDateString()}</p>
-                </div>
-            `;
-        }
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', updateDocumentDetails);
     </script>
 </body>
 </html> 
