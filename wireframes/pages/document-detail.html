@@ -151,6 +151,8 @@
             transition: all 0.3s ease;
             cursor: pointer;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
         }
         .doc-card:hover {
             transform: translateY(-5px);
@@ -161,6 +163,7 @@
             color: #666666;
             margin-top: 0;
             margin-bottom: 10px;
+            cursor: pointer;
         }
         .doc-card p {
             color: var(--text-light);
@@ -193,6 +196,22 @@
             background: var(--background-color);
             color: var(--text-light);
             margin-right: 10px;
+        }
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+            padding-top: 15px;
+        }
+        .action-button.preview {
+            background: #666666;
+            color: white;
+            border-color: #666666;
+        }
+        .action-button.download {
+            background: white;
+            color: #666666;
+            border-color: #666666;
         }
     </style>
 </head>
@@ -267,20 +286,44 @@
         <div class="related-docs">
             <h2>Related Documents</h2>
             <div class="doc-grid">
-                <div class="doc-card" onclick="window.location.href='/wireframes/pages/document-detail.html'">
-                    <h4>FoodMaster Safety Data Sheet</h4>
+                <div class="doc-card">
+                    <h4 onclick="showDocumentDetail('FoodMaster Safety Data Sheet')">FoodMaster Safety Data Sheet</h4>
                     <p><span class="file-type">PDF</span> 1.8MB</p>
                     <p class="date">Added 3 days ago</p>
+                    <div class="card-actions">
+                        <button class="action-button preview" onclick="showDocumentDetail('FoodMaster Safety Data Sheet')">
+                            Preview
+                        </button>
+                        <button class="action-button download" onclick="downloadDocument('FoodMaster Safety Data Sheet')">
+                            Download
+                        </button>
+                    </div>
                 </div>
-                <div class="doc-card" onclick="window.location.href='/wireframes/pages/document-detail.html'">
-                    <h4>FoodMaster Technical Data Sheet</h4>
+                <div class="doc-card">
+                    <h4 onclick="showDocumentDetail('FoodMaster Technical Data Sheet')">FoodMaster Technical Data Sheet</h4>
                     <p><span class="file-type">PDF</span> 2.1MB</p>
                     <p class="date">Added 1 week ago</p>
+                    <div class="card-actions">
+                        <button class="action-button preview" onclick="showDocumentDetail('FoodMaster Technical Data Sheet')">
+                            Preview
+                        </button>
+                        <button class="action-button download" onclick="downloadDocument('FoodMaster Technical Data Sheet')">
+                            Download
+                        </button>
+                    </div>
                 </div>
-                <div class="doc-card" onclick="window.location.href='/wireframes/pages/document-detail.html'">
-                    <h4>FoodMaster Application Guide</h4>
+                <div class="doc-card">
+                    <h4 onclick="showDocumentDetail('FoodMaster Application Guide')">FoodMaster Application Guide</h4>
                     <p><span class="file-type">PDF</span> 3.2MB</p>
                     <p class="date">Added 2 weeks ago</p>
+                    <div class="card-actions">
+                        <button class="action-button preview" onclick="showDocumentDetail('FoodMaster Application Guide')">
+                            Preview
+                        </button>
+                        <button class="action-button download" onclick="downloadDocument('FoodMaster Application Guide')">
+                            Download
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -354,6 +397,19 @@
                     </div>
                 `;
             }
+        }
+
+        // Functions for document actions
+        function showDocumentDetail(title) {
+            sessionStorage.setItem('currentDocument', title);
+            const encodedTitle = encodeURIComponent(title);
+            window.location.href = `/wireframes/pages/document-detail.html?name=${encodedTitle}`;
+        }
+
+        function downloadDocument(title) {
+            console.log(`Downloading document: ${title}`);
+            // In a real app, this would redirect to a download endpoint
+            alert(`Downloading ${title}`);
         }
 
         // Load navigation
