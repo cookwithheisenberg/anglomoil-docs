@@ -22,73 +22,25 @@
             color: var(--text-color);
         }
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
+        }
+        .main-content {
+            padding: 30px 0;
+        }
+        .content-wrapper {
             display: grid;
             grid-template-columns: 300px 1fr;
             gap: 30px;
+            align-items: start;
         }
         .sidebar {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            height: fit-content;
             position: sticky;
             top: 20px;
         }
-        .filter-section {
-            margin-bottom: 30px;
-        }
-        .filter-section h3 {
-            color: var(--primary-color);
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 8px;
-        }
-        .filter-options {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .filter-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 0;
-        }
-        .filter-option input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            accent-color: var(--primary-color);
-        }
-        .filter-option label {
-            cursor: pointer;
-            font-size: 0.95rem;
-        }
-        .select-all {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 0;
-            margin-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .select-all input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            accent-color: var(--primary-color);
-        }
-        .select-all label {
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.95rem;
-        }
-        .main-content {
-            padding: 0;
+        .content-area {
+            flex: 1;
         }
         .page-header {
             padding: 40px 0;

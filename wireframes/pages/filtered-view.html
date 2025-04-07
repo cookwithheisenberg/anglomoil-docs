@@ -21,12 +21,18 @@
             color: var(--text-color);
         }
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
+        }
+        .main-content {
+            padding: 30px 0;
+        }
+        .content-wrapper {
             display: grid;
             grid-template-columns: 300px 1fr;
             gap: 30px;
+            align-items: start;
         }
         .sidebar {
             background: white;
@@ -86,8 +92,8 @@
             font-weight: bold;
             font-size: 0.95rem;
         }
-        .main-content {
-            padding: 0;
+        .content-area {
+            flex: 1;
         }
         .page-header {
             padding: 40px 0;
@@ -303,6 +309,7 @@
         })();
     </script>
 
+    <!-- Header/Hero Section -->
     <div class="page-header">
         <div class="container">
             <h1>Filtered Documents</h1>
@@ -310,10 +317,11 @@
         </div>
     </div>
 
+    <!-- Main Content -->
     <div class="main-content">
         <div class="container">
             <div class="content-wrapper">
-                <!-- Sidebar -->
+                <!-- Left Sidebar -->
                 <div class="sidebar">
                     <div class="filter-section">
                         <h3>Document Type</h3>
@@ -394,13 +402,20 @@
                     </div>
                 </div>
 
-                <!-- Main Content Area -->
+                <!-- Right Content Area -->
                 <div class="content-area">
+                    <!-- Search and Top Filters -->
                     <div class="search-section">
                         <input type="text" class="search-bar" placeholder="Search within selected category...">
                     </div>
 
-                    <div class="doc-grid">
+                    <!-- Active Filters -->
+                    <div class="active-filters">
+                        <!-- ... active filters ... -->
+                    </div>
+
+                    <!-- Document Cards Grid -->
+                    <div class="doc-cards">
                         <div class="doc-card">
                             <div class="thumbnail" style="background-image: url('https://via.placeholder.com/400x250/f5f5f5/666666?text=Certificate')">
                                 <span class="badge new">New</span>
