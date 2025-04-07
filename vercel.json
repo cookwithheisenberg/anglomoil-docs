@@ -1,6 +1,6 @@
 {
   "outputDirectory": "wireframes",
-  "buildCommand": false,
+  "buildCommand": null,
   "rewrites": [
     {
       "source": "/",
