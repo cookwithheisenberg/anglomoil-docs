@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation Hub - Anglomoil</title>
+    <style>
+        :root {
+            --primary-color: #666666;
+            --secondary-color: #333333;
+            --background-color: #f5f5f5;
+            --border-color: #cccccc;
+            --text-color: #333333;
+            --text-light: #666666;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+        .sidebar {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        .filter-section {
+            margin-bottom: 30px;
+        }
+        .filter-section h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+        }
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+        }
+        .filter-option input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary-color);
+        }
+        .filter-option label {
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        .select-all {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .select-all input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary-color);
+        }
+        .select-all label {
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .page-header {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .page-header h1 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .page-header p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .search-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .search-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        .view-toggle {
+            display: flex;
+            gap: 5px;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .view-toggle button {
+            padding: 8px 12px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .view-toggle button:hover {
+            background: var(--background-color);
+        }
+        .view-toggle button.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        .search-bar {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        .filter-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .filter-group {
+            position: relative;
+        }
+        .filter-button {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filter-button:hover, .filter-button.active {
+            background: #666666;
+            color: white;
+            border-color: #666666;
+        }
+        .filter-button::after {
+            content: '▼';
+            font-size: 0.8em;
+            margin-left: 5px;
+        }
+        .filter-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 10px;
+            min-width: 200px;
+            z-index: 100;
+            display: none;
+        }
+        .filter-dropdown.show {
+            display: block;
+        }
+        .filter-option {
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .filter-option:hover {
+            background-color: var(--background-color);
+        }
+        .filter-option.active {
+            background-color: #666666;
+            color: white;
+        }
+        .filter-option input[type="checkbox"] {
+            margin-right: 8px;
+            accent-color: var(--primary-color);
+        }
+        .filter-option label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filter-option .count {
+            margin-left: auto;
+            color: var(--text-light);
+            font-size: 0.9em;
+        }
+        .filter-option.active .count {
+            color: white;
+        }
+        .filter-header {
+            font-weight: bold;
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 8px;
+        }
+        .filter-section:last-child {
+            margin-bottom: 0;
+        }
+        .file-type-filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .file-type-button {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .file-type-button:hover, .file-type-button.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .doc-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .doc-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .doc-card.list-view {
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 25px;
+        }
+        .doc-card.list-view h4 {
+            flex: 1;
+            margin: 0;
+        }
+        .doc-card.list-view .file-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .doc-card.list-view .date {
+            margin: 0;
+        }
+        .doc-card.list-view .card-actions {
+            margin-left: auto;
+        }
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+        .action-button {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: white;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+        .action-button:hover {
+            background: #333333;
+            color: white;
+            border-color: #333333;
+        }
+        .action-button.preview {
+            background: #666666;
+            color: white;
+            border-color: #666666;
+        }
+        .action-button.download {
+            background: white;
+            color: #666666;
+            border-color: #666666;
+        }
+        .filter-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        .clear-filters {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: white;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .clear-filters:hover {
+            background: #666666;
+            color: white;
+            border-color: #666666;
+        }
+        .active-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .active-filter {
+            padding: 4px 8px;
+            background: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .active-filter .remove {
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        .active-filter .remove:hover {
+            color: #666666;
+        }
+        .doc-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            border-color: #666666;
+        }
+        .doc-card h4 {
+            color: #666666;
+            margin-top: 0;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .doc-card p {
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+        .doc-card .date {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+        .badge.new {
+            background: #999999;
+            color: white;
+        }
+        .badge.updated {
+            background: #cccccc;
+            color: var(--text-color);
+        }
+        .file-type {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            background: var(--background-color);
+            color: var(--text-light);
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Navigation -->
+    <div id="nav-placeholder"></div>
+    <script>
+        fetch('/wireframes/components/navigation.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+            });
+    </script>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="filter-section">
+                <h3>By Brand</h3>
+                <div class="select-all">
+                    <input type="checkbox" id="brand-select-all">
+                    <label for="brand-select-all">Select All</label>
+                </div>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="brand-agrimaster">
+                        <label for="brand-agrimaster">AgriMaster</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="brand-foodmaster">
+                        <label for="brand-foodmaster">FoodMaster</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="brand-gardenmaster">
+                        <label for="brand-gardenmaster">GardenMaster</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="brand-rasynhp">
+                        <label for="brand-rasynhp">RasynHP</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="brand-rasynpro">
+                        <label for="brand-rasynpro">RasynPRO</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="brand-roadmaster">
+                        <label for="brand-roadmaster">RoadMaster</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="brand-seamaster">
+                        <label for="brand-seamaster">SeaMaster</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="brand-shopmaster">
+                        <label for="brand-shopmaster">ShopMaster</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>By Industry</h3>
+                <div class="select-all">
+                    <input type="checkbox" id="industry-select-all">
+                    <label for="industry-select-all">Select All</label>
+                </div>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="industry-agriculture">
+                        <label for="industry-agriculture">Agriculture</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="industry-automotive">
+                        <label for="industry-automotive">Automotive</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="industry-construction">
+                        <label for="industry-construction">Construction</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="industry-food-beverages">
+                        <label for="industry-food-beverages">Manufacturing: Food & Beverages</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="industry-industrial-machinery">
+                        <label for="industry-industrial-machinery">Manufacturing: Industrial & Machinery</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="industry-mining">
+                        <label for="industry-mining">Mining</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="industry-trucking">
+                        <label for="industry-trucking">Trucking, Transport & Marine</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>By Product/Application</h3>
+                <div class="select-all">
+                    <input type="checkbox" id="application-select-all">
+                    <label for="application-select-all">Select All</label>
+                </div>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-accessory">
+                        <label for="app-accessory">Accessory</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-aerosols">
+                        <label for="app-aerosols">Aerosols</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-compressor">
+                        <label for="app-compressor">Compressor Fluid</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-coolants">
+                        <label for="app-coolants">Coolants</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-diesel">
+                        <label for="app-diesel">Diesel Engine Oil</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-food">
+                        <label for="app-food">Food Manufacturing</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-garden">
+                        <label for="app-garden">Garden Care</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-gear">
+                        <label for="app-gear">Gear Oil</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-grease">
+                        <label for="app-grease">Grease</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-hi-performance">
+                        <label for="app-hi-performance">Hi-Performance Oils</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-hydraulic">
+                        <label for="app-hydraulic">Hydraulic Oil</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-industrial">
+                        <label for="app-industrial">Industrial Oil</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-speciality">
+                        <label for="app-speciality">Industrial Speciality Oils</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-marine">
+                        <label for="app-marine">Marine Oil</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-metal">
+                        <label for="app-metal">Metal Working Fluid</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-petrol">
+                        <label for="app-petrol">Petrol Engine Oil</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-tractor">
+                        <label for="app-tractor">Tractor Oil</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-transmission">
+                        <label for="app-transmission">Transmission Oil</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-turbine">
+                        <label for="app-turbine">Turbine Oil</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="app-workshop">
+                        <label for="app-workshop">Workshop</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="page-header">
+                <h1>Documentation Hub</h1>
+                <p>Access all product-related materials, including certificates, brochures, and technical documentation for each brand we stock.</p>
+            </div>
+
+            <div class="search-section">
+                <div class="search-controls">
+                    <input type="text" class="search-bar" placeholder="Search documents...">
+                    <div class="view-toggle">
+                        <button class="grid-view active" title="Grid View">☷</button>
+                        <button class="list-view" title="List View">☰</button>
+                    </div>
+                </div>
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <button class="filter-button">Document Type</button>
+                        <div class="filter-dropdown">
+                            <div class="filter-header">Document Type</div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="type-certificates">
+                                <label for="type-certificates">Certificates <span class="count">(24)</span></label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="type-data-sheets">
+                                <label for="type-data-sheets">Data Sheets <span class="count">(18)</span></label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="type-safety-data">
+                                <label for="type-safety-data">Safety Data <span class="count">(15)</span></label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="type-manuals">
+                                <label for="type-manuals">Manuals <span class="count">(12)</span></label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="type-brochures">
+                                <label for="type-brochures">Brochures <span class="count">(8)</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <button class="filter-button">Sort By</button>
+                        <div class="filter-dropdown">
+                            <div class="filter-header">Sort By</div>
+                            <div class="filter-option">
+                                <input type="radio" name="sort" id="sort-alphabetical">
+                                <label for="sort-alphabetical">Alphabetical (A-Z)</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="radio" name="sort" id="sort-recent">
+                                <label for="sort-recent">Most Recent</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="radio" name="sort" id="sort-size">
+                                <label for="sort-size">File Size</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <button class="filter-button">View Type</button>
+                        <div class="filter-dropdown">
+                            <div class="filter-header">View Type</div>
+                            <div class="filter-option">
+                                <input type="radio" name="view" id="view-preview">
+                                <label for="view-preview">Preview</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="radio" name="view" id="view-download">
+                                <label for="view-download">Download</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <button class="filter-button">Time Period</button>
+                        <div class="filter-dropdown">
+                            <div class="filter-header">Time Period</div>
+                            <div class="filter-option">
+                                <input type="radio" name="time" id="time-today">
+                                <label for="time-today">Today</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="radio" name="time" id="time-week">
+                                <label for="time-week">This Week</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="radio" name="time" id="time-month">
+                                <label for="time-month">This Month</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="radio" name="time" id="time-year">
+                                <label for="time-year">This Year</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <button class="filter-button">File Size</button>
+                        <div class="filter-dropdown">
+                            <div class="filter-header">File Size</div>
+                            <div class="filter-option">
+                                <input type="radio" name="size" id="size-small">
+                                <label for="size-small">Small (< 1MB)</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="radio" name="size" id="size-medium">
+                                <label for="size-medium">Medium (1-5MB)</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="radio" name="size" id="size-large">
+                                <label for="size-large">Large (> 5MB)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-actions">
+                    <div class="active-filters">
+                        <!-- Active filters will be added here dynamically -->
+                    </div>
+                    <button class="clear-filters">Clear All Filters</button>
+                </div>
+            </div>
+
+            <div class="doc-grid">
+                <div class="doc-card">
+                    <h4 onclick="showDocumentDetail('FoodMaster HACCP Certificate')">FoodMaster HACCP Certificate <span class="badge new">New</span></h4>
+                    <p><span class="file-type">PDF</span> 2.5MB</p>
+                    <p class="date">Added 2 days ago</p>
+                    <div class="card-actions">
+                        <button class="action-button preview" onclick="showDocumentDetail('FoodMaster HACCP Certificate')">
+                            <span>👁️</span> Preview
+                        </button>
+                        <button class="action-button download" onclick="downloadDocument('FoodMaster HACCP Certificate')">
+                            <span>⬇️</span> Download
+                        </button>
+                    </div>
+                </div>
+                <div class="doc-card">
+                    <h4 onclick="showDocumentDetail('AgriMaster Tractor Oil Data Sheet')">AgriMaster Tractor Oil Data Sheet <span class="badge updated">Updated</span></h4>
+                    <p><span class="file-type">PDF</span> 1.8MB</p>
+                    <p class="date">Added 3 days ago</p>
+                    <div class="card-actions">
+                        <button class="action-button preview" onclick="showDocumentDetail('AgriMaster Tractor Oil Data Sheet')">
+                            <span>👁️</span> Preview
+                        </button>
+                        <button class="action-button download" onclick="downloadDocument('AgriMaster Tractor Oil Data Sheet')">
+                            <span>⬇️</span> Download
+                        </button>
+                    </div>
+                </div>
+                <div class="doc-card">
+                    <h4 onclick="showDocumentDetail('RoadMaster Grease Technical Manual')">RoadMaster Grease Technical Manual</h4>
+                    <p><span class="file-type">PDF</span> 3.2MB</p>
+                    <p class="date">Added 5 days ago</p>
+                    <div class="card-actions">
+                        <button class="action-button preview" onclick="showDocumentDetail('RoadMaster Grease Technical Manual')">
+                            <span>👁️</span> Preview
+                        </button>
+                        <button class="action-button download" onclick="downloadDocument('RoadMaster Grease Technical Manual')">
+                            <span>⬇️</span> Download
+                        </button>
+                    </div>
+                </div>
+                <div class="doc-card">
+                    <h4 onclick="showDocumentDetail('SeaMaster Marine Oil Safety Data')">SeaMaster Marine Oil Safety Data</h4>
+                    <p><span class="file-type">PDF</span> 1.5MB</p>
+                    <p class="date">Added 1 week ago</p>
+                    <div class="card-actions">
+                        <button class="action-button preview" onclick="showDocumentDetail('SeaMaster Marine Oil Safety Data')">
+                            <span>👁️</span> Preview
+                        </button>
+                        <button class="action-button download" onclick="downloadDocument('SeaMaster Marine Oil Safety Data')">
+                            <span>⬇️</span> Download
+                        </button>
+                    </div>
+                </div>
+                <div class="doc-card">
+                    <h4 onclick="showDocumentDetail('GardenMaster Product Brochure')">GardenMaster Product Brochure</h4>
+                    <p><span class="file-type">PDF</span> 4.1MB</p>
+                    <p class="date">Added 2 weeks ago</p>
+                    <div class="card-actions">
+                        <button class="action-button preview" onclick="showDocumentDetail('GardenMaster Product Brochure')">
+                            <span>👁️</span> Preview
+                        </button>
+                        <button class="action-button download" onclick="downloadDocument('GardenMaster Product Brochure')">
+                            <span>⬇️</span> Download
+                        </button>
+                    </div>
+                </div>
+                <div class="doc-card">
+                    <h4 onclick="showDocumentDetail('RasynHP Industrial Oil Certificate')">RasynHP Industrial Oil Certificate</h4>
+                    <p><span class="file-type">PDF</span> 2.1MB</p>
+                    <p class="date">Added 3 weeks ago</p>
+                    <div class="card-actions">
+                        <button class="action-button preview" onclick="showDocumentDetail('RasynHP Industrial Oil Certificate')">
+                            <span>👁️</span> Preview
+                        </button>
+                        <button class="action-button download" onclick="downloadDocument('RasynHP Industrial Oil Certificate')">
+                            <span>⬇️</span> Download
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add functionality for "Select All" checkboxes
+        document.querySelectorAll('.select-all input[type="checkbox"]').forEach(selectAll => {
+            selectAll.addEventListener('change', function() {
+                const section = this.closest('.filter-section');
+                const checkboxes = section.querySelectorAll('.filter-options input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = this.checked;
+                });
+            });
+        });
+
+        // Add functionality for filter dropdowns
+        document.querySelectorAll('.filter-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const dropdown = this.nextElementSibling;
+                const isOpen = dropdown.classList.contains('show');
+                
+                // Close all other dropdowns
+                document.querySelectorAll('.filter-dropdown').forEach(d => {
+                    d.classList.remove('show');
+                });
+                
+                // Toggle current dropdown
+                if (!isOpen) {
+                    dropdown.classList.add('show');
+                }
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function() {
+            document.querySelectorAll('.filter-dropdown').forEach(dropdown => {
+                dropdown.classList.remove('show');
+            });
+        });
+
+        // Add functionality for filter options
+        document.querySelectorAll('.filter-option input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const option = this.closest('.filter-option');
+                if (this.checked) {
+                    option.classList.add('active');
+                } else {
+                    option.classList.remove('active');
+                }
+            });
+        });
+
+        document.querySelectorAll('.filter-option input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const group = this.name;
+                document.querySelectorAll(`input[name="${group}"]`).forEach(r => {
+                    r.closest('.filter-option').classList.remove('active');
+                });
+                this.closest('.filter-option').classList.add('active');
+            });
+        });
+
+        // Add functionality for view toggle
+        const viewToggle = document.querySelector('.view-toggle');
+        const docGrid = document.querySelector('.doc-grid');
+        const docCards = document.querySelectorAll('.doc-card');
+
+        viewToggle.addEventListener('click', function(e) {
+            if (e.target.tagName === 'BUTTON') {
+                // Update active state of buttons
+                viewToggle.querySelectorAll('button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                e.target.classList.add('active');
+
+                // Toggle view mode
+                if (e.target.classList.contains('grid-view')) {
+                    docGrid.classList.remove('doc-list');
+                    docCards.forEach(card => {
+                        card.classList.remove('list-view');
+                    });
+                } else {
+                    docGrid.classList.add('doc-list');
+                    docCards.forEach(card => {
+                        card.classList.add('list-view');
+                    });
+                }
+            }
+        });
+
+        // Add functionality for active filters
+        const activeFilters = document.querySelector('.active-filters');
+        const clearFiltersButton = document.querySelector('.clear-filters');
+        let currentFilters = new Set();
+
+        function updateActiveFilters() {
+            activeFilters.innerHTML = '';
+            currentFilters.forEach(filter => {
+                const filterElement = document.createElement('div');
+                filterElement.className = 'active-filter';
+                filterElement.innerHTML = `
+                    ${filter}
+                    <span class="remove" onclick="removeFilter('${filter}')">×</span>
+                `;
+                activeFilters.appendChild(filterElement);
+            });
+        }
+
+        function addFilter(filter) {
+            currentFilters.add(filter);
+            updateActiveFilters();
+        }
+
+        function removeFilter(filter) {
+            currentFilters.delete(filter);
+            updateActiveFilters();
+            // Update the corresponding checkbox/radio button
+            const input = document.querySelector(`input[value="${filter}"]`);
+            if (input) {
+                input.checked = false;
+                input.closest('.filter-option').classList.remove('active');
+            }
+        }
+
+        clearFiltersButton.addEventListener('click', function() {
+            currentFilters.clear();
+            updateActiveFilters();
+            // Uncheck all filter inputs
+            document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(input => {
+                input.checked = false;
+                input.closest('.filter-option').classList.remove('active');
+            });
+        });
+
+        // Add functionality for filter options
+        document.querySelectorAll('.filter-option input').forEach(input => {
+            input.addEventListener('change', function() {
+                const option = this.closest('.filter-option');
+                const label = option.querySelector('label').textContent.trim();
+                
+                if (this.checked) {
+                    option.classList.add('active');
+                    addFilter(label);
+                } else {
+                    option.classList.remove('active');
+                    removeFilter(label);
+                }
+            });
+        });
+
+        // Add functionality for document actions
+        function showDocumentDetail(title) {
+            // Store the document title in sessionStorage to pass to the detail page
+            sessionStorage.setItem('currentDocument', title);
+            // Navigate to the document detail page
+            window.location.href = '/wireframes/pages/document-detail.html';
+        }
+
+        function downloadDocument(title) {
+            console.log(`Downloading document: ${title}`);
+            // Implement download functionality
+        }
+
+        // Add functionality for search
+        const searchBar = document.querySelector('.search-bar');
+        searchBar.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const cards = document.querySelectorAll('.doc-card');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('h4').textContent.toLowerCase();
+                if (title.includes(searchTerm)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

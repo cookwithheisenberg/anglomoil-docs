@@ -1,0 +1,64 @@
+<nav class="main-nav">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">
+            <img src="https://anglomoil.com/wp-content/uploads/2023/10/anglomoil-logo.png" alt="Anglomoil" height="40">
+        </a>
+        <div class="nav-links">
+            <a href="/wireframes/pages/main-hub.html" class="nav-link">Documentation Hub</a>
+            <a href="#" class="nav-link">Products</a>
+            <a href="#" class="nav-link">About</a>
+            <a href="#" class="nav-link">Contact</a>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .main-nav {
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .nav-logo {
+        text-decoration: none;
+    }
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+    }
+    .nav-link {
+        color: #333;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.1rem;
+        position: relative;
+        padding: 0.5rem 0;
+    }
+    .nav-link:hover {
+        color: #d9230f;
+    }
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #d9230f;
+        transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+        width: 100%;
+    }
+</style> 

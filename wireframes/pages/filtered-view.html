@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtered View - Anglomoil Documentation Hub</title>
+    <style>
+        :root {
+            --primary-color: #d9230f;
+            --secondary-color: #333;
+            --background-color: #f8f8f8;
+            --border-color: #e0e0e0;
+            --text-color: #333;
+            --text-light: #666;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+        .sidebar {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        .filter-section {
+            margin-bottom: 30px;
+        }
+        .filter-section h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+        }
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+        }
+        .filter-option input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary-color);
+        }
+        .filter-option label {
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        .select-all {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .select-all input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary-color);
+        }
+        .select-all label {
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .page-header {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .page-header h1 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .page-header p {
+            color: var(--text-light);
+        }
+        .search-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .search-bar {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .doc-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .doc-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            border-color: var(--primary-color);
+        }
+        .doc-card h4 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .doc-card p {
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+        .doc-card .date {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+        .badge.new {
+            background: #28a745;
+            color: white;
+        }
+        .badge.updated {
+            background: #ffc107;
+            color: var(--text-color);
+        }
+        .file-type {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            background: var(--background-color);
+            color: var(--text-light);
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Navigation -->
+    <div id="nav-placeholder"></div>
+    <script>
+        fetch('/wireframes/components/navigation.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+            });
+    </script>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="filter-section">
+                <h3>Document Type</h3>
+                <div class="select-all">
+                    <input type="checkbox" id="doc-type-select-all">
+                    <label for="doc-type-select-all">Select All</label>
+                </div>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="type-certificate">
+                        <label for="type-certificate">Certificates</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="type-datasheet">
+                        <label for="type-datasheet">Data Sheets</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="type-safety">
+                        <label for="type-safety">Safety Data</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="type-manual">
+                        <label for="type-manual">Manuals</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="type-brochure">
+                        <label for="type-brochure">Brochures</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>File Format</h3>
+                <div class="select-all">
+                    <input type="checkbox" id="format-select-all">
+                    <label for="format-select-all">Select All</label>
+                </div>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="format-pdf">
+                        <label for="format-pdf">PDF</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="format-doc">
+                        <label for="format-doc">DOC/DOCX</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="format-xls">
+                        <label for="format-xls">XLS/XLSX</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="format-image">
+                        <label for="format-image">Images</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Date Added</h3>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="date-today">
+                        <label for="date-today">Today</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="date-week">
+                        <label for="date-week">This Week</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="date-month">
+                        <label for="date-month">This Month</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="date-year">
+                        <label for="date-year">This Year</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="page-header">
+                <h1>By Brand Documents</h1>
+                <p>Browse and filter documents by Anglomoil brands</p>
+            </div>
+
+            <div class="search-section">
+                <input type="text" class="search-bar" placeholder="Search within selected category...">
+            </div>
+
+            <div class="doc-grid">
+                <div class="doc-card" onclick="window.location.href='/wireframes/pages/document-detail.html'">
+                    <h4>FoodMaster HACCP Certificate <span class="badge new">New</span></h4>
+                    <p><span class="file-type">PDF</span> 2.5MB</p>
+                    <p class="date">Added 2 days ago</p>
+                </div>
+                <div class="doc-card" onclick="window.location.href='/wireframes/pages/document-detail.html'">
+                    <h4>AgriMaster Tractor Oil Data Sheet <span class="badge updated">Updated</span></h4>
+                    <p><span class="file-type">PDF</span> 1.8MB</p>
+                    <p class="date">Added 3 days ago</p>
+                </div>
+                <div class="doc-card" onclick="window.location.href='/wireframes/pages/document-detail.html'">
+                    <h4>RoadMaster Grease Technical Manual</h4>
+                    <p><span class="file-type">PDF</span> 3.2MB</p>
+                    <p class="date">Added 5 days ago</p>
+                </div>
+                <div class="doc-card" onclick="window.location.href='/wireframes/pages/document-detail.html'">
+                    <h4>SeaMaster Marine Oil Safety Data</h4>
+                    <p><span class="file-type">PDF</span> 1.5MB</p>
+                    <p class="date">Added 1 week ago</p>
+                </div>
+                <div class="doc-card" onclick="window.location.href='/wireframes/pages/document-detail.html'">
+                    <h4>GardenMaster Product Brochure</h4>
+                    <p><span class="file-type">PDF</span> 4.1MB</p>
+                    <p class="date">Added 2 weeks ago</p>
+                </div>
+                <div class="doc-card" onclick="window.location.href='/wireframes/pages/document-detail.html'">
+                    <h4>RasynHP Industrial Oil Certificate</h4>
+                    <p><span class="file-type">PDF</span> 2.1MB</p>
+                    <p class="date">Added 3 weeks ago</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add functionality for "Select All" checkboxes
+        document.querySelectorAll('.select-all input[type="checkbox"]').forEach(selectAll => {
+            selectAll.addEventListener('change', function() {
+                const section = this.closest('.filter-section');
+                const checkboxes = section.querySelectorAll('.filter-options input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = this.checked;
+                });
+            });
+        });
+
+        // Update page title and header based on URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('category');
+        
+        if (category) {
+            const titleMap = {
+                'brand': 'By Brand Documents',
+                'industry': 'By Industry Documents',
+                'application': 'By Product/Application Documents'
+            };
+            const descriptionMap = {
+                'brand': 'Browse and filter documents by Anglomoil brands',
+                'industry': 'Find documents specific to your industry',
+                'application': 'Access documents for specific products and applications'
+            };
+            
+            document.querySelector('.page-header h1').textContent = titleMap[category];
+            document.querySelector('.page-header p').textContent = descriptionMap[category];
+            document.title = `${titleMap[category]} - Anglomoil Documentation Hub`;
+        }
+    </script>
+</body>
+</html> 
